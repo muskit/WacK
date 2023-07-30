@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bqh00ot0csqmk"]
+
+[node name="Play" type="Node"]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.09161)
+fov = 60.0
+near = 0.001
+far = 100.0
+
+[node name="Node2D" type="Node2D" parent="."]

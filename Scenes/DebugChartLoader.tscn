@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqhdw2o5vq7ny"]
+
+[ext_resource type="Script" path="res://Scripts/Scenes/DebugChartLoader.cs" id="1_hjgpd"]
+
+[node name="DebugChartLoader" type="MarginContainer" node_paths=PackedStringArray("inputField", "soundField", "difficultyButton", "playButton")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_hjgpd")
+inputField = NodePath("VBoxContainer/HBoxContainer/PathLineEdit")
+soundField = NodePath("VBoxContainer/HBoxContainer3/SoundLineEdit")
+difficultyButton = NodePath("VBoxContainer/HBoxContainer/DifficultyOptionButton")
+playButton = NodePath("VBoxContainer/HBoxContainer2/PlayButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PathLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+size_flags_stretch_ratio = 5.97
+text = "AkiraComplex - Ether Strike"
+placeholder_text = "Folder path relative to \"user://songs/\""
+
+[node name="DifficultyOptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+item_count = 4
+selected = 0
+popup/item_0/text = "0. Normal"
+popup/item_0/id = 0
+popup/item_1/text = "1. Hard"
+popup/item_1/id = 1
+popup/item_2/text = "2. Expert"
+popup/item_2/id = 2
+popup/item_3/text = "3. Inferno"
+popup/item_3/id = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SoundLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "music.wav"
+placeholder_text = "Name of audio file in the folder specified above with extension"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Play"
