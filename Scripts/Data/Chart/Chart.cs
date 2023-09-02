@@ -14,7 +14,8 @@ namespace WacK.Data.Chart
     public class Chart
     {
         public static bool doneLoading { get; private set; } = false;
-        // [ms] = List<Note> (list for chord marking creation)
+        // Key of dictionaries are in milliseconds
+        // List is for chords
         public SortedList<float, List<NotePlay>> playNotes { get; private set; }
         public SortedList<float, NoteEvent<(int, int)>> timeSigChgs { get; private set; }
         public SortedList<float, NoteEvent<float>> tempoChgs { get; private set; }
