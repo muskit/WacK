@@ -30,3 +30,4 @@ project/assembly_name="WacK"
 [rendering]
 
 renderer/rendering_method="mobile"
+anti_aliasing/quality/msaa_3d=1

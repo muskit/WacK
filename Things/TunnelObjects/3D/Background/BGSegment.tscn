@@ -10,7 +10,7 @@ shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
 distance_fade_mode = 1
 distance_fade_min_distance = 6.0
-distance_fade_max_distance = 0.0
+distance_fade_max_distance = 0.5
 
 [sub_resource type="StandardMaterial3D" id="3"]
 transparency = 1

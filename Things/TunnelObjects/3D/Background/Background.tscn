@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbvduvnoesla5"]
 
-[ext_resource type="PackedScene" path="res://Things/TunnelObjects/3D/Background/BGSegment.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bgvm8k2dygr3k" path="res://Things/TunnelObjects/3D/Background/BGSegment.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/Background.cs" id="1_7hv1b"]
 
 [node name="Background" type="Node3D"]

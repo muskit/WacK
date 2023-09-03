@@ -9,13 +9,13 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace WacK
+namespace WacK.Things.TunnelObjects
 {
 
     public enum DrawDirection {
         CounterClockwise, Clockwise, Center
     }
-    public class Background : Node
+    public partial class Background : Node
     {
         private bool isReady = false;
         private float _drawLength;
@@ -49,10 +49,11 @@ namespace WacK
             bgMaterial = (StandardMaterial3D) segments[0].GetChild<CsgPolygon3D>(1).Material;
 
             isReady = true;
-            DrawLength = DrawLength;
+            // DrawLength = DrawLength;
         }
 
         // draw in 6/60 frames (0.1s)
+        // TODO: figure out how WACCA handles animation speed
         public async void SetSegments(int pos, int size, bool state, DrawDirection direction)
         {
             // GD.Print($"{direction} = {state}. Even? {size % 2 == 0}");

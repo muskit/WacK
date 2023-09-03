@@ -1,6 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=7 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="PackedScene" uid="uid://bbvduvnoesla5" path="res://Things/TunnelObjects/3D/Background/Background.tscn" id="1_2wv7o"]
+
+[sub_resource type="Environment" id="Environment_nefjb"]
+ambient_light_source = 1
+ambient_light_energy = 0.0
+reflected_light_source = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cd2b"]
 resource_name = "DefaultMaterial"
@@ -45,13 +50,16 @@ shading_mode = 0
 
 [node name="Play" type="Node"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nefjb")
+
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.095)
 fov = 60.0
 near = 0.001
-far = 100.0
+far = 10.0
 
 [node name="Cone" type="Node3D" parent="Node3D"]
 visible = false
