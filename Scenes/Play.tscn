@@ -85,6 +85,7 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 
 [node name="Cylinder" type="MeshInstance3D" parent="Node3D/Cone/RootNode"]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+gi_mode = 0
 mesh = SubResource("ArrayMesh_qc82q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
