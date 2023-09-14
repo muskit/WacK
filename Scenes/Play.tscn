@@ -45,7 +45,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_40gjx")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ln6xl"]
-viewport_path = NodePath("2D Viewport")
+viewport_path = NodePath("SubViewportContainer/2D Viewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rv8i"]
 resource_local_to_scene = true
@@ -79,93 +79,17 @@ near = 0.001
 far = 20.0
 
 [node name="Cone" type="Node3D" parent="Node3D"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="RootNode" type="Node3D" parent="Node3D/Cone"]
+transform = Transform3D(8.74228e-08, 4.37114e-08, 1, -1, 4.37114e-08, 8.74228e-08, -4.37114e-08, -1, 4.37114e-08, 0, 0, 0)
 
 [node name="Cylinder" type="MeshInstance3D" parent="Node3D/Cone/RootNode"]
-transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_qc82q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
-
-[node name="2D Viewport" type="SubViewport" parent="."]
-disable_3d = true
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-msaa_2d = 1
-size = Vector2i(1920, 1920)
-render_target_update_mode = 4
-
-[node name="Base" type="Control" parent="2D Viewport"]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Camera2D" type="Camera2D" parent="2D Viewport/Base"]
-position = Vector2(0, -1920)
-anchor_mode = 0
-enabled = false
-
-[node name="Shadow" type="TextureRect" parent="2D Viewport/Base"]
-layout_mode = 2
-offset_top = 1920.0
-offset_right = 100.0
-offset_bottom = 3840.0
-rotation = -1.5708
-texture = SubResource("GradientTexture1D_vv2ac")
-expand_mode = 1
-
-[node name="Line" type="TextureRect" parent="2D Viewport/Base"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -960.0
-offset_top = -25.0
-offset_bottom = -8.01501
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_lkl1c")
-expand_mode = 1
-
-[node name="Line2" type="TextureRect" parent="2D Viewport/Base"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = -25.0
-offset_right = 960.0
-offset_bottom = -8.01501
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_lkl1c")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="2D Viewport/Base"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -970.0
-offset_right = 1885.0
-offset_bottom = -4.99927
-grow_vertical = 0
-size_flags_vertical = 3
-text = "1 2 3 4 5 6 7 10"
-label_settings = SubResource("LabelSettings_dj3ei")
-horizontal_alignment = 1
-vertical_alignment = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 2
@@ -176,3 +100,85 @@ offset_right = 1920.0
 offset_bottom = -1080.0
 grow_vertical = 0
 stretch = true
+
+[node name="2D Viewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_2d = 1
+size = Vector2i(1920, 1920)
+render_target_update_mode = 4
+
+[node name="Base" type="Control" parent="SubViewportContainer/2D Viewport"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/2D Viewport/Base"]
+position = Vector2(0, -1920)
+anchor_mode = 0
+enabled = false
+
+[node name="Shadow" type="TextureRect" parent="SubViewportContainer/2D Viewport/Base"]
+layout_mode = 2
+offset_top = 1920.0
+offset_right = 100.0
+offset_bottom = 3840.0
+rotation = -1.5708
+texture = SubResource("GradientTexture1D_vv2ac")
+expand_mode = 1
+
+[node name="Line" type="TextureRect" parent="SubViewportContainer/2D Viewport/Base"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -45.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_lkl1c")
+expand_mode = 1
+
+[node name="Line2" type="TextureRect" parent="SubViewportContainer/2D Viewport/Base"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -45.0
+offset_right = 960.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_lkl1c")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/2D Viewport/Base"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -2236.45
+offset_right = 1885.0
+offset_bottom = 1.54797
+grow_vertical = 0
+size_flags_vertical = 3
+text = "1 2 3 4 5 6 7 10
+1 2 3 4 5 6 7 10
+1 2 3 4 5 6 7 10
+1 2 3 4 5 6 7 10
+1 2 3 4 5 6 7 10
+1 2 3 4 5 6 7 10"
+label_settings = SubResource("LabelSettings_dj3ei")
+horizontal_alignment = 1
+vertical_alignment = 2
