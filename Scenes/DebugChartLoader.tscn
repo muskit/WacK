@@ -33,7 +33,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 size_flags_stretch_ratio = 5.97
-text = "AkiraComplex - Ether Strike"
+text = "Bad Apple!!"
 placeholder_text = "Folder path relative to \"user://songs/\""
 
 [node name="DifficultyOptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
@@ -59,7 +59,7 @@ alignment = 1
 [node name="SoundLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "music.wav"
+text = "music.mp3"
 placeholder_text = "Name of audio file in the folder specified above with extension"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
