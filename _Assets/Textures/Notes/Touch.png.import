@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkohutwp0yujj"
-path="res://.godot/imported/BGLine.png-af4f1342c3bc8c34a09e2a82d0efff66.ctex"
+uid="uid://cnsbqiharp0jh"
+path="res://.godot/imported/Touch.png-abb04cb9144d6a99bf175db6f49959a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://_Assets/Textures/BGLine.png"
-dest_files=["res://.godot/imported/BGLine.png-af4f1342c3bc8c34a09e2a82d0efff66.ctex"]
+source_file="res://_Assets/Textures/Notes/Touch.png"
+dest_files=["res://.godot/imported/Touch.png-abb04cb9144d6a99bf175db6f49959a3.ctex"]
 
 [params]
 

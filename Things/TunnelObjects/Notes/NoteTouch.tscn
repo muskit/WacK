@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyopljug0duaa"]
+
+[ext_resource type="Texture2D" uid="uid://cnsbqiharp0jh" path="res://_Assets/Textures/Notes/Touch.png" id="1_hnm2k"]
+
+[node name="NoteTouch" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -1920.0
+offset_right = 1920.0
+offset_bottom = -1884.0
+grow_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hnm2k")
+patch_margin_left = 12
+patch_margin_right = 12

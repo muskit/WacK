@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=13 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
-[ext_resource type="Texture2D" uid="uid://dkohutwp0yujj" path="res://_Assets/Textures/BGLine.png" id="2_lkl1c"]
+[ext_resource type="Texture2D" uid="uid://dkohutwp0yujj" path="res://_Assets/Textures/HitLine/BGLine.png" id="2_kpt0a"]
+[ext_resource type="PackedScene" uid="uid://cyopljug0duaa" path="res://Things/TunnelObjects/Notes/NoteTouch.tscn" id="3_qp71m"]
 
 [sub_resource type="Environment" id="Environment_nefjb"]
 ambient_light_source = 1
@@ -148,7 +149,7 @@ offset_right = 960.0
 offset_bottom = 1907.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("2_lkl1c")
+texture = ExtResource("2_kpt0a")
 expand_mode = 1
 
 [node name="Line2" type="TextureRect" parent="SubViewportContainer/2D Viewport/Node2D/HitLine_Reverse"]
@@ -163,10 +164,11 @@ offset_right = 1920.0
 offset_bottom = 1907.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("2_lkl1c")
+texture = ExtResource("2_kpt0a")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="SubViewportContainer/2D Viewport/Node2D"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -187,3 +189,9 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="Notes" type="Node2D" parent="SubViewportContainer/2D Viewport/Node2D"]
+
+[node name="NoteTouch" parent="SubViewportContainer/2D Viewport/Node2D/Notes" instance=ExtResource("3_qp71m")]
+offset_left = 1500.0
+offset_top = 1800.0
+offset_right = 1690.0
+offset_bottom = 1824.0
