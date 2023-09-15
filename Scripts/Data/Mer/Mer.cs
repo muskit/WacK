@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Godot;
 
 namespace WacK.Data.Mer
 {
@@ -133,7 +134,8 @@ namespace WacK.Data.Mer
                         notes[currentMeasure].Add((currentBeat, new MerNote(value: tokens[3], type: MerType.Tempo)));
                         break;
                     case "3": // beats per measure
-                        notes[currentMeasure].Add((currentBeat, new MerNote(value: $"{tokens[3]} {tokens[4]}", type: MerType.TimeSignature)));
+                        string de = tokens.Count >= 5 ? tokens[4] : "4"; // TODO: use previously-estbalished denominator?
+                        notes[currentMeasure].Add((currentBeat, new MerNote(value: $"{tokens[3]} {de}", type: MerType.TimeSignature)));
                         break;
                 }
             }

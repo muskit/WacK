@@ -21,15 +21,31 @@ namespace WacK.Data.Chart
         public SortedList<float, NoteEvent<float>> tempoChgs { get; private set; }
         public SortedList<float, NoteEvent<int>> events { get; private set; }
 
-        public Chart()
+        public Chart(string chartPath)
         {
             doneLoading = false;
+			var file = FileAccess.Open(chartPath, FileAccess.ModeFlags.Read);
+            if (file == null)
+            {
+                GD.PrintErr("Couldn't load chart in play!");
+                return;
+            }
+			var str = file.GetAsText();
+            file.Close();
+
+            var mer = new Mer.Mer(str);
+            Load(mer);
+            
+            doneLoading = true;
         }
 
         // place notes and events relative to the previous
-        public void Load(Mer.Mer chart)
+        private void Load(Mer.Mer chart)
         {
-            playNotes = new SortedList<float, List<NotePlay>>();
+            playNotes = new();
+            timeSigChgs = new();
+            tempoChgs = new();
+            events = new();
 
             List<float> tempo = new List<float>();
             List<int> tempoChangeMeasures = new List<int>();
@@ -56,8 +72,8 @@ namespace WacK.Data.Chart
 
             Note prevNote = null;
             Note curNote = null;
-            var prevHoldPoint = new System.Collections.Generic.Dictionary<int, NotePlay>(); // <note idx, previous point of hold>
-            var curHoldNote = new System.Collections.Generic.Dictionary<int, NoteHold>(); // <next hold idx, HoldStart>
+            var prevHoldPoint = new Dictionary<int, NotePlay>(); // <note idx, previous point of hold>
+            var curHoldNote = new Dictionary<int, NoteHold>(); // <next hold idx, HoldStart>
 
             // Notes and Events //
             foreach (var measure in chart.notes) // `measure` = measure: List
@@ -112,7 +128,8 @@ namespace WacK.Data.Chart
 							var de = int.Parse(words[1]);
 							if (beatsPerMeasure.Count == 1)
                             {
-                                beatsPerMeasure.Add(int.Parse(chartNote.Item2.value));
+                                // TODO: handle denominator (note that gets the beat)
+                                beatsPerMeasure.Add(nu);
                                 bpmChangeMeasures.Add(measure.Key);
                             }
                             else
@@ -327,7 +344,7 @@ namespace WacK.Data.Chart
             //     }
             // }
 
-            doneLoading = true;
+            GD.Print("Finished forming Chart!");
         }
     }
 }

@@ -1,4 +1,6 @@
 using Godot;
+using WacK.Data.Chart;
+using WacK.Data.Mer;
 
 namespace WacK.Scenes
 {
@@ -22,11 +24,12 @@ namespace WacK.Scenes
 		// initialized by another scene, BEFORE loading this one!
 		public static PlayParameters playParams;
 
-		private void Start()
-		{
-			
-		}
+		private Chart chart;
 
+		public override void _Ready()
+		{ 
+			chart = new(playParams.chartPath);
+		} 
 		private void OnDestroy()
 		{
 			playParams = null;

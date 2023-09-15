@@ -15,6 +15,7 @@ namespace WacK.Data.Chart
 			: base(time, measureBeat, position, size,holdIndex, holdNext, type: NotePlayType.HoldStart, bonus: false) 
 		{
 			// points = (SortedList<float, Note>)holdPoints.Skip(1);
+			points = new();
 		}
 	}
 }
