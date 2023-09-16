@@ -13,7 +13,6 @@ namespace WacK.Data.Chart
     /// </summary>
     public class Chart
     {
-        public static bool doneLoading { get; private set; } = false;
         // Key of dictionaries are in milliseconds
         // List is for chords
         public SortedList<float, List<NotePlay>> playNotes { get; private set; }
@@ -23,7 +22,6 @@ namespace WacK.Data.Chart
 
         public Chart(string chartPath)
         {
-            doneLoading = false;
 			var file = FileAccess.Open(chartPath, FileAccess.ModeFlags.Read);
             if (file == null)
             {
@@ -35,8 +33,6 @@ namespace WacK.Data.Chart
 
             var mer = new Mer.Mer(str);
             Load(mer);
-            
-            doneLoading = true;
         }
 
         // place notes and events relative to the previous
