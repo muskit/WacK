@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=13 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
 [ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/HitLine.tscn" id="2_8g6gv"]
@@ -55,12 +55,8 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_ln6xl")
 uv1_scale = Vector3(-1, 1, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1ouek"]
-blend_mode = 3
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5ymar"]
 blend_mode = 3
-light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_ahp1v"]
 offsets = PackedFloat32Array(0, 0.548295, 1)
@@ -152,11 +148,11 @@ offset_bottom = 1920.0
 [node name="Holds Viewport" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView"]
 transparent_bg = true
 handle_input_locally = false
+screen_space_aa = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
 [node name="Holds Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
-material = SubResource("CanvasItemMaterial_1ouek")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

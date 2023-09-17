@@ -93,7 +93,6 @@ namespace WacK.Scenes
 
 		private void RealizeHolds(NoteHold note)
 		{
-			GD.Print($"Creating hold point that has {note.points.Count} segments");
 			List<Vector2> verts = new(note.points.Count*2 + 2);
 
 			// HoldStart's pos
@@ -101,25 +100,22 @@ namespace WacK.Scenes
 			// ascending -- "left" side
 			foreach (var (t, n) in note.points)
 			{
-				GD.Print($"{t}: {n.position}+{n.size}");
 				verts.Add(new Vector2((float)n.position * 1920/60, t * -PIXELS_PER_SECOND));
-				GD.Print($"{verts.Count} verts recorded");
 			}
-			// descending
+			// descending -- "right" side
 			foreach (var (t, n) in note.points.Reverse())
 			{
 				verts.Add(new Vector2((float)((int)n.position + (int)n.size) * 1920/60, t * -PIXELS_PER_SECOND));
 			}
-			// HoldStart's end
+			// HoldStart's pos + size
 			verts.Add(new Vector2((float)((int)note.position + (int)note.size) * 1920/60, (float)note.time * -PIXELS_PER_SECOND));
 
-			GD.Print($"Created {verts.Count} verts");
-            var p2d = new Polygon2D
-            {
-                Polygon = verts.ToArray(),
-                Antialiased = true
+			var p2d = new Polygon2D
+			{
+				Polygon = verts.ToArray(),
+				Antialiased = true,
+				Modulate = new Color("#FFFFFFD0")
             };
-			GD.Print($"Created Polygon with {p2d.Polygon.Count()} verts");
             scrollDisplay.AddChild(p2d);
 		}
 
