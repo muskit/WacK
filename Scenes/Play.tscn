@@ -167,8 +167,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HoldTest" type="Polygon2D" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll"]
-position = Vector2(0, -6000)
 color = Color(1, 1, 1, 0.921569)
+antialiased = true
 polygon = PackedVector2Array(0, 0, 300, 0, 1100, -1920, 800, -1920)
 
 [node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 using Godot;
 using WacK.Data.Chart;
@@ -72,6 +74,7 @@ namespace WacK.Scenes
 					{
 						case NotePlayType.HoldStart:
 							nNote = noteHold.Instantiate<THNoteHold>();
+							RealizeHolds(note as NoteHold);
 							break;
 						case NotePlayType.Touch:
 							nNote = noteTouch.Instantiate<THNotePlay>();
@@ -88,10 +91,43 @@ namespace WacK.Scenes
 			}
 		}
 
+		private void RealizeHolds(NoteHold note)
+		{
+			GD.Print($"Creating hold point that has {note.points.Count} segments");
+			List<Vector2> verts = new(note.points.Count*2 + 2);
+
+			// HoldStart's pos
+			verts.Add(new Vector2((float)note.position * 1920/60, (float)note.time * -PIXELS_PER_SECOND));
+			// ascending -- "left" side
+			foreach (var (t, n) in note.points)
+			{
+				GD.Print($"{t}: {n.position}+{n.size}");
+				verts.Add(new Vector2((float)n.position * 1920/60, t * -PIXELS_PER_SECOND));
+				GD.Print($"{verts.Count} verts recorded");
+			}
+			// descending
+			foreach (var (t, n) in note.points.Reverse())
+			{
+				verts.Add(new Vector2((float)((int)n.position + (int)n.size) * 1920/60, t * -PIXELS_PER_SECOND));
+			}
+			// HoldStart's end
+			verts.Add(new Vector2((float)((int)note.position + (int)note.size) * 1920/60, (float)note.time * -PIXELS_PER_SECOND));
+
+			GD.Print($"Created {verts.Count} verts");
+            var p2d = new Polygon2D
+            {
+                Polygon = verts.ToArray(),
+                Antialiased = true
+            };
+			GD.Print($"Created Polygon with {p2d.Polygon.Count()} verts");
+            scrollDisplay.AddChild(p2d);
+		}
+
         public override void _Process(double delta)
         {
 			var nPos = noteDisplay.Position;
 			nPos.Y += (float)delta * PIXELS_PER_SECOND;
+			// nPos.Y = 142375.875f; // Bad Apple Expert: OOB hold note
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
         }
