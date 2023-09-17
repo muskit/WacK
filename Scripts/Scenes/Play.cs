@@ -35,13 +35,24 @@ namespace WacK.Scenes
 		[Export]
 		public Control scrollDisplay;
 
+		[Export]
+		public Viewport mainViewport;
+		[Export]
+		public Viewport leftViewport;
+		[Export]
+		public Viewport rightViewport;
+
 		private Chart chart;
 
 		// scroll speed
 		private const float PIXELS_PER_SECOND = 2000;
 
 		public override void _Ready()
-		{ 
+		{
+			// so we can see objects outside of the 0-60min. region
+			leftViewport.World2D = mainViewport.World2D;
+			rightViewport.World2D = mainViewport.World2D;
+
 			// parse mer and create chart for current play
 			chart = new(playParams.chartPath);
 			RealizeChart();
@@ -82,6 +93,7 @@ namespace WacK.Scenes
 			var nPos = noteDisplay.Position;
 			nPos.Y += (float)delta * PIXELS_PER_SECOND;
 			noteDisplay.Position = nPos;
+			scrollDisplay.Position = nPos;
         }
 
         private void OnDestroy()

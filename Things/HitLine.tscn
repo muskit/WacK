@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dkohutwp0yujj" path="res://_Assets/Textures/HitLine/BGLine.png" id="1_w0gbp"]
 
 [sub_resource type="Gradient" id="Gradient_djnn4"]
-offsets = PackedFloat32Array(0, 0.380682, 1)
-colors = PackedColorArray(0, 0, 0, 0.368627, 0, 0, 0, 0.368627, 0, 0, 0, 0.0980392)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.0308856, 0.0596563, 0.141577, 0.894118)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kn5i7"]
 gradient = SubResource("Gradient_djnn4")
@@ -19,7 +19,7 @@ anchor_bottom = 1.0
 offset_top = -32.0
 grow_vertical = 0
 
-[node name="Shadow" type="TextureRect" parent="."]
+[node name="DarkBG" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(1920, 1920)
 layout_mode = 1
 anchors_preset = 2

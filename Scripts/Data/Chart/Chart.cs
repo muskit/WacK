@@ -296,7 +296,7 @@ namespace WacK.Data.Chart
                 }
                 if (chordableNotes.Count >= 2)
                 {
-					GD.Print($"Found chord: {string.Join(", ", chordableNotes)}");
+					// GD.Print($"Found chord: {string.Join(", ", chordableNotes)}");
 					// TODO: draw chord indicators "Chordify"
 				}
             }

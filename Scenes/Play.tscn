@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=14 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
 [ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/HitLine.tscn" id="2_8g6gv"]
@@ -73,13 +73,13 @@ width = 1920
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_27qpl"]
 blend_mode = 1
 
-[sub_resource type="LabelSettings" id="LabelSettings_dj3ei"]
-font_size = 271
-
-[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay")]
+[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay", "mainViewport", "leftViewport", "rightViewport")]
 script = ExtResource("1_d6iv3")
 noteDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Notes Scroll")
-scrollDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport/Holds Scroll")
+scrollDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll")
+mainViewport = NodePath("ViewportView/2D Viewport")
+leftViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Left/Viewport Left")
+rightViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Right/Viewport Right")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nefjb")
@@ -126,7 +126,6 @@ size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
 [node name="Viewport Control" type="Control" parent="ViewportView/2D Viewport"]
-clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -134,26 +133,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera2D" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="Camera2D Main" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control"]
 position = Vector2(0, -1920)
+offset = Vector2(0, 1920)
 anchor_mode = 0
-enabled = false
+editor_draw_screen = false
 
 [node name="Background" parent="ViewportView/2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
 layout_mode = 1
+offset_top = -1920.0
+offset_right = 1920.0
 
 [node name="Holds ViewportView" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1920.0
 
-[node name="SubViewport" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView"]
+[node name="Holds Viewport" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Holds Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport"]
+[node name="Holds Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
 material = SubResource("CanvasItemMaterial_1ouek")
 layout_mode = 3
 anchors_preset = 15
@@ -164,11 +166,12 @@ offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HoldTest" type="Polygon2D" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport/Holds Scroll"]
+[node name="HoldTest" type="Polygon2D" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll"]
+position = Vector2(0, -6000)
 color = Color(1, 1, 1, 0.921569)
 polygon = PackedVector2Array(0, 0, 300, 0, 1100, -1920, 800, -1920)
 
-[node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport"]
+[node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
 material = SubResource("CanvasItemMaterial_5ymar")
 custom_minimum_size = Vector2(1920, 1920)
 anchors_preset = 15
@@ -190,23 +193,43 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="ViewportView/2D Viewport/Viewport Control"]
-visible = false
+[node name="ViewportView Left" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1920.0
+
+[node name="Viewport Left" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Left"]
+disable_3d = true
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_2d = 1
+size = Vector2i(1920, 1920)
+render_target_update_mode = 4
+
+[node name="Camera2D Left" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Left/Viewport Left"]
+position = Vector2(0, -1920)
+offset = Vector2(-1921, 1920)
+anchor_mode = 0
+
+[node name="ViewportView Right" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -2236.45
-offset_right = 1885.0
-offset_bottom = 1.5481
-grow_vertical = 0
-size_flags_vertical = 3
-text = "1 2 3 4 5 6 7 10
-1 2 3 4 5 6 7 10
-1 2 3 4 5 6 7 10
-1 2 3 4 5 6 7 10
-1 2 3 4 5 6 7 10
-1 2 3 4 5 6 7 10"
-label_settings = SubResource("LabelSettings_dj3ei")
-horizontal_alignment = 1
-vertical_alignment = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport Right" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Right"]
+disable_3d = true
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_2d = 1
+size = Vector2i(1920, 1920)
+render_target_update_mode = 4
+
+[node name="Camera2D Right" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Right/Viewport Right"]
+position = Vector2(0, -1920)
+offset = Vector2(1921, 1920)
+anchor_mode = 0
