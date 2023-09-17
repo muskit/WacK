@@ -13,7 +13,7 @@ namespace WacK.Data.Chart
     /// </summary>
     public class Chart
     {
-        // Key of dictionaries are in milliseconds
+        // Key of dictionaries are in seconds
         // List is for chords
         public SortedList<float, List<NotePlay>> playNotes { get; private set; }
         public SortedList<float, NoteEvent<(int, int)>> timeSigChgs { get; private set; }
@@ -241,13 +241,15 @@ namespace WacK.Data.Chart
                         {
 							curHoldNote[np.holdIdx].points[curTime] = np;
 						}
-
-                        // add note
-                        if (!playNotes.ContainsKey(curTime))
+                        else
                         {
-                            playNotes[curTime] = new List<NotePlay>();
+                            // only add notes that aren't part of the hold
+                            if (!playNotes.ContainsKey(curTime))
+                            {
+                                playNotes[curTime] = new List<NotePlay>();
+                            }
+                            playNotes[curTime].Add(np);
                         }
-                        playNotes[curTime].Add(np);
                     }
 
 					// NoteEvent<float> -- tempo changes

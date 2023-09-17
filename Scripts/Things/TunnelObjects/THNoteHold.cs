@@ -11,6 +11,8 @@ namespace WacK.Things.TunnelObjects
 		{
 			base.Init(noteData);
 			this.noteData = noteData;
+			
+			// TODO: setup other Nodes to render hold note properly
 		}
     }
 }

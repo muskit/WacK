@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=15 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
-[ext_resource type="Texture2D" uid="uid://dkohutwp0yujj" path="res://_Assets/Textures/HitLine/BGLine.png" id="2_kpt0a"]
-[ext_resource type="PackedScene" uid="uid://cyopljug0duaa" path="res://Things/TunnelObjects/Notes/NoteTouch.tscn" id="3_qp71m"]
+[ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/HitLine.tscn" id="2_8g6gv"]
 
 [sub_resource type="Environment" id="Environment_nefjb"]
 ambient_light_source = 1
@@ -47,7 +46,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_40gjx")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ln6xl"]
-viewport_path = NodePath("SubViewportContainer/2D Viewport")
+viewport_path = NodePath("ViewportView/2D Viewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rv8i"]
 resource_local_to_scene = true
@@ -56,19 +55,31 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_ln6xl")
 uv1_scale = Vector3(-1, 1, 1)
 
-[sub_resource type="Gradient" id="Gradient_djnn4"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1ouek"]
+blend_mode = 3
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vv2ac"]
-gradient = SubResource("Gradient_djnn4")
-width = 2048
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5ymar"]
+blend_mode = 3
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ahp1v"]
+offsets = PackedFloat32Array(0, 0.548295, 1)
+colors = PackedColorArray(0.794938, 0.436061, 3.46541e-06, 1, 1, 0.972549, 0.262745, 1, 1, 1, 0.607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pha5y"]
+gradient = SubResource("Gradient_ahp1v")
+width = 1920
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_27qpl"]
+blend_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_dj3ei"]
 font_size = 271
 
-[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay")]
+[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay")]
 script = ExtResource("1_d6iv3")
-noteDisplay = NodePath("SubViewportContainer/2D Viewport/Viewport Control/Notes")
+noteDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Notes Scroll")
+scrollDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport/Holds Scroll")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nefjb")
@@ -95,7 +106,7 @@ mesh = SubResource("ArrayMesh_qc82q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="ViewportView" type="SubViewportContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -105,7 +116,7 @@ offset_bottom = -1080.0
 grow_vertical = 0
 stretch = true
 
-[node name="2D Viewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="2D Viewport" type="SubViewport" parent="ViewportView"]
 disable_3d = true
 own_world_3d = true
 transparent_bg = true
@@ -114,7 +125,7 @@ msaa_2d = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Viewport Control" type="Control" parent="SubViewportContainer/2D Viewport"]
+[node name="Viewport Control" type="Control" parent="ViewportView/2D Viewport"]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -123,52 +134,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/2D Viewport/Viewport Control"]
+[node name="Camera2D" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control"]
 position = Vector2(0, -1920)
 anchor_mode = 0
 enabled = false
 
-[node name="Shadow" type="TextureRect" parent="SubViewportContainer/2D Viewport/Viewport Control"]
-layout_mode = 2
-offset_top = 1920.0
-offset_right = 100.0
-offset_bottom = 3840.0
-rotation = -1.5708
-texture = SubResource("GradientTexture1D_vv2ac")
-expand_mode = 1
+[node name="Background" parent="ViewportView/2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
+layout_mode = 1
 
-[node name="HitLine_Reverse" type="Node2D" parent="SubViewportContainer/2D Viewport/Viewport Control"]
-
-[node name="Line" type="TextureRect" parent="SubViewportContainer/2D Viewport/Viewport Control/HitLine_Reverse"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 1875.0
-offset_right = 960.0
-offset_bottom = 1907.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_kpt0a")
-expand_mode = 1
-
-[node name="Line2" type="TextureRect" parent="SubViewportContainer/2D Viewport/Viewport Control/HitLine_Reverse"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 960.0
-offset_top = 1875.0
+[node name="Holds ViewportView" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
+layout_mode = 0
 offset_right = 1920.0
-offset_bottom = 1907.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_kpt0a")
-expand_mode = 1
+offset_bottom = 1920.0
 
-[node name="Label" type="Label" parent="SubViewportContainer/2D Viewport/Viewport Control"]
+[node name="SubViewport" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1920)
+render_target_update_mode = 4
+
+[node name="Holds Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport"]
+material = SubResource("CanvasItemMaterial_1ouek")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1920.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HoldTest" type="Polygon2D" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport/Holds Scroll"]
+color = Color(1, 1, 1, 0.921569)
+polygon = PackedVector2Array(0, 0, 300, 0, 1100, -1920, 800, -1920)
+
+[node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/SubViewport"]
+material = SubResource("CanvasItemMaterial_5ymar")
+custom_minimum_size = Vector2(1920, 1920)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1920.0
+offset_right = 3840.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_pha5y")
+
+[node name="Notes Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control"]
+material = SubResource("CanvasItemMaterial_27qpl")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="ViewportView/2D Viewport/Viewport Control"]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -188,23 +210,3 @@ text = "1 2 3 4 5 6 7 10
 label_settings = SubResource("LabelSettings_dj3ei")
 horizontal_alignment = 1
 vertical_alignment = 2
-
-[node name="Notes" type="Control" parent="SubViewportContainer/2D Viewport/Viewport Control"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-
-[node name="NoteTouch" parent="SubViewportContainer/2D Viewport/Viewport Control/Notes" instance=ExtResource("3_qp71m")]
-visible = false
-layout_mode = 1
-offset_left = 400.0
-offset_top = -120.0
-offset_right = 1100.0
-offset_bottom = -96.0
-
-[node name="HoldTest" type="Polygon2D" parent="SubViewportContainer/2D Viewport/Viewport Control/Notes"]
-visible = false
-color = Color(1, 0.917647, 0.2, 0.890196)
-polygon = PackedVector2Array(0, 0, 300, 0, 1100, -1920, 800, -1920)

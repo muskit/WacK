@@ -27,12 +27,18 @@ namespace WacK.Scenes
 		public static PlayParameters playParams;
 
 		// TunnelObjects we can instantiate
-		public static PackedScene notePlay = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteTouch.tscn");
+		public static PackedScene noteTouch = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteTouch.tscn");
+		public static PackedScene noteHold = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteHold.tscn");
 
 		[Export]
 		public Control noteDisplay;
+		[Export]
+		public Control scrollDisplay;
 
 		private Chart chart;
+
+		// scroll speed
+		private const float PIXELS_PER_SECOND = 2000;
 
 		public override void _Ready()
 		{ 
@@ -42,25 +48,29 @@ namespace WacK.Scenes
 		}
 
 		/// <summary>
-		/// Instantiates necessary notes onto the noteDisplay for the player to see.
+		/// Instantiates necessary notes onto noteDisplay for the player to see.
 		/// </summary>
 		private void RealizeChart()
 		{	
 			foreach (var msNote in chart.playNotes)
 			{
-				GD.Print(msNote.Key);
 				foreach (var note in msNote.Value)
 				{
 					THNotePlay nNote;
-					switch (note)
+					switch (note.type)
 					{
-						default: // tap note
-							nNote = notePlay.Instantiate<THNotePlay>();
+						case NotePlayType.HoldStart:
+							nNote = noteHold.Instantiate<THNoteHold>();
 							break;
+						case NotePlayType.Touch:
+							nNote = noteTouch.Instantiate<THNotePlay>();
+							break;
+						default:
+							continue;
 					}
 					nNote.Init(note);
 					var nPos = nNote.Position;
-					nPos.Y = msNote.Key * -1000;
+					nPos.Y = msNote.Key * -PIXELS_PER_SECOND;
 					nNote.Position = nPos;
 					noteDisplay.AddChild(nNote);
 				}
@@ -70,7 +80,7 @@ namespace WacK.Scenes
         public override void _Process(double delta)
         {
 			var nPos = noteDisplay.Position;
-			nPos.Y += (float)delta * 1000;
+			nPos.Y += (float)delta * PIXELS_PER_SECOND;
 			noteDisplay.Position = nPos;
         }
 
