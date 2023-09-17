@@ -17,39 +17,23 @@ namespace WacK.Things.TunnelObjects
 	}
 	public partial class Background : Node
 	{
-		private bool isReady = false;
-		private float _drawLength;
-		private List<Node3D> segments = new List<Node3D>();
-		private StandardMaterial3D bgMaterial;
 		[Export]
-		public float DrawLength
-		{
-			set
-			{
-				_drawLength = value;
-				if (!isReady) return;
-
-				bgMaterial.DistanceFadeMinDistance = _drawLength;
-				bgMaterial.DistanceFadeMaxDistance = 0;
-				foreach (Node segment in segments)
-				{
-					segment.GetChild<Node3D>(1).Scale = new Vector3(1, _drawLength, 1);
-				}
-			}
-			get { return _drawLength; }
-		}
+		private ColorRect firstSegment;
+		private List<ColorRect> segments = new(60);
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			foreach (Node3D segment in GetChildren())
+			var segmentsNode = FindChild("Segment Masks");
+			segments.Add(firstSegment);
+			for (int i = 1; i < 60; ++i)
 			{
-				segments.Add(segment);
+				var n = (ColorRect)firstSegment.Duplicate();
+				segmentsNode.AddChild(n);
+				segments.Add(n);
+				n.Name = i.ToString();
+				n.SetPosition(new Vector2(i * 1920 / 60, 0));
 			}
-			bgMaterial = (StandardMaterial3D) segments[0].GetChild<CsgPolygon3D>(1).Material;
-
-			isReady = true;
-			// DrawLength = DrawLength;
 		}
 
 		// draw in 6/60 frames (0.1s)
@@ -59,10 +43,10 @@ namespace WacK.Things.TunnelObjects
 			// GD.Print($"{direction} = {state}. Even? {size % 2 == 0}");
 
 			double timer = 0;
-			double time = 0.1f;
+			double time = .5f;
 
 			int centerSeg = pos + size/2;
-			while (timer < 0.1f)
+			while (timer < time)
 			{
 				timer = Mathf.Clamp(timer + GetProcessDeltaTime(), 0, time);
 				var timerRatio = (float)(timer / time);
@@ -93,7 +77,7 @@ namespace WacK.Things.TunnelObjects
 						}
 						break;
 				}
-				await ToSignal(GetTree(), "idle_frame");
+				await ToSignal(GetTree(), "process_frame");
 			}
 		}
 	}

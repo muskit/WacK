@@ -36,6 +36,8 @@ namespace WacK.Scenes
 		public Control noteDisplay;
 		[Export]
 		public Control scrollDisplay;
+		[Export]
+		public Background background;
 
 		[Export]
 		public Viewport mainViewport;

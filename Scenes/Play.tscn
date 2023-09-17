@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=16 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
-[ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/HitLine.tscn" id="2_8g6gv"]
+[ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/Background.tscn" id="2_8g6gv"]
+[ext_resource type="Shader" path="res://Shaders/Cutout2D.gdshader" id="3_rjbyl"]
 
 [sub_resource type="Environment" id="Environment_nefjb"]
 ambient_light_source = 1
@@ -55,6 +56,14 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_ln6xl")
 uv1_scale = Vector3(-1, 1, 1)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_w20vk"]
+viewport_path = NodePath("Mask")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80tx5"]
+resource_local_to_scene = true
+shader = ExtResource("3_rjbyl")
+shader_parameter/mask = SubResource("ViewportTexture_w20vk")
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5ymar"]
 blend_mode = 3
 
@@ -69,10 +78,11 @@ width = 1920
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_27qpl"]
 blend_mode = 1
 
-[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay", "mainViewport", "leftViewport", "rightViewport")]
+[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay", "background", "mainViewport", "leftViewport", "rightViewport")]
 script = ExtResource("1_d6iv3")
 noteDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Notes Scroll")
 scrollDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll")
+background = NodePath("ViewportView/2D Viewport/Viewport Control/Background")
 mainViewport = NodePath("ViewportView/2D Viewport")
 leftViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Left/Viewport Left")
 rightViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Right/Viewport Right")
@@ -136,6 +146,7 @@ anchor_mode = 0
 editor_draw_screen = false
 
 [node name="Background" parent="ViewportView/2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
+material = SubResource("ShaderMaterial_80tx5")
 layout_mode = 1
 offset_top = -1920.0
 offset_right = 1920.0
@@ -161,11 +172,6 @@ offset_top = 1920.0
 offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HoldTest" type="Polygon2D" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll"]
-color = Color(1, 1, 1, 0.921569)
-antialiased = true
-polygon = PackedVector2Array(0, 0, 300, 0, 1100, -1920, 800, -1920)
 
 [node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
 material = SubResource("CanvasItemMaterial_5ymar")
