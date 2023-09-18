@@ -19,7 +19,7 @@ namespace WacK.Things.TunnelObjects
 		}
 
 		// Create longThing in segments.
-        public void BuildLongThing(Control holdScroll)
+        private void BuildLongThing(Control holdScroll)
         {
             longThing = new Node2D();
             holdScroll.AddChild(longThing);
@@ -102,7 +102,7 @@ namespace WacK.Things.TunnelObjects
                 subSegment.Translate(new Vector2(60 * minuteSize, 0));
                 segment.AddChild(subSegment);
             }
-
+            segment.Modulate = new Color("#FFFFFFD0");
             return segment;
         }
     }

@@ -59,7 +59,7 @@ uv1_scale = Vector3(-1, 1, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_w20vk"]
 viewport_path = NodePath("Mask")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lmy2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lf1uh"]
 resource_local_to_scene = true
 shader = ExtResource("3_rjbyl")
 shader_parameter/mask = SubResource("ViewportTexture_w20vk")
@@ -113,14 +113,17 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
 
 [node name="ViewportView" type="SubViewportContainer" parent="."]
-anchors_preset = 2
+modulate = Color(1, 1, 1, 0.329412)
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -3000.0
-offset_right = 1920.0
-offset_bottom = -1080.0
+offset_left = -960.0
+offset_top = -1920.0
+offset_right = 960.0
+grow_horizontal = 2
 grow_vertical = 0
-stretch = true
 
 [node name="2D Viewport" type="SubViewport" parent="ViewportView"]
 disable_3d = true
@@ -146,7 +149,7 @@ anchor_mode = 0
 editor_draw_screen = false
 
 [node name="Background" parent="ViewportView/2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
-material = SubResource("ShaderMaterial_2lmy2")
+material = SubResource("ShaderMaterial_lf1uh")
 layout_mode = 1
 offset_top = -1920.0
 offset_right = 1920.0
