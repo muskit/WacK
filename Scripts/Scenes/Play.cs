@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using Godot;
+using WacK.Configuration;
 using WacK.Data.Chart;
 using WacK.Data.Mer;
 using WacK.Things.TunnelObjects;
@@ -50,7 +51,13 @@ namespace WacK.Scenes
 
 		// base scroll speed, which we can apply multipliers on
 		public static readonly float BASE_PIXELS_PER_SECOND = 800;
-		public static float scrollPxPerSec = BASE_PIXELS_PER_SECOND * 3.5f;
+		public static float scrollPxPerSec
+		{
+			get
+			{
+				return BASE_PIXELS_PER_SECOND * PlaySettings.playSpeedMultiplier;
+			}
+		}
 
 		public override void _Ready()
 		{
@@ -93,34 +100,6 @@ namespace WacK.Scenes
 				}
 			}
 		}
-
-		// private void RealizeHolds(NoteHold note)
-		// {
-		// 	List<Vector2> verts = new(note.points.Count*2 + 2);
-
-		// 	// HoldStart's pos
-		// 	verts.Add(new Vector2((float)note.pos * 1920/60, (float)note.time * -scrollPxPerSec));
-		// 	// ascending -- "left" side
-		// 	foreach (var (t, n) in note.points)
-		// 	{
-		// 		verts.Add(new Vector2((float)n.pos * 1920/60, t * -scrollPxPerSec));
-		// 	}
-		// 	// descending -- "right" side
-		// 	foreach (var (t, n) in note.points.Reverse())
-		// 	{
-		// 		verts.Add(new Vector2((float)((int)n.pos + (int)n.size) * 1920/60, t * -scrollPxPerSec));
-		// 	}
-		// 	// HoldStart's pos + size
-		// 	verts.Add(new Vector2((float)((int)note.pos + (int)note.size) * 1920/60, (float)note.time * -scrollPxPerSec));
-
-		// 	var p2d = new Polygon2D
-		// 	{
-		// 		Polygon = verts.ToArray(),
-		// 		Antialiased = true,
-		// 		Modulate = new Color("#FFFFFFD0")
-        //     };
-        //     scrollDisplay.AddChild(p2d);
-		// }
 
         public override void _Process(double delta)
         {

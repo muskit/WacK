@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Reflection.Metadata;
 using Godot;
+using WacK.Configuration;
 using WacK.Data.Chart;
 using WacK.Scenes;
 
@@ -47,8 +49,7 @@ namespace WacK.Things.TunnelObjects
 
         private Polygon2D CreateSegment(NotePlay origin, NotePlay destination)
         {
-			Vector2I textureSize = new(1920, 1920);
-			float minuteSize = textureSize.X / 60;
+			float minuteSize = Constants.BASE_2D_RESOLUTION / 60;
 
             var length = Play.scrollPxPerSec * (float)(destination.time - origin.time);
             var verts = new Vector2[4];

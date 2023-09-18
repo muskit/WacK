@@ -10,8 +10,6 @@ using System;
 
 using Godot;
 
-using WacK.Configuration;
-
 namespace WacK
 {
     public static class Util
@@ -108,22 +106,6 @@ namespace WacK
             if (tempo == 0) return 0; // avoid divide by 0
 
             return 60f / tempo * beatsPerMeasure * ((float)measure + (float)beat / 1920f);
-        }
-
-        public static float NotePosition(int measure, int beat, float tempo, int beatsPerMeasure)
-        {
-            if (tempo == 0) return 0; // avoid divide by 0
-            return TimeToPosition(60f / tempo * beatsPerMeasure * ((float)measure + (float)beat / 1920f));
-        }
-
-        public static float TimeToPosition(float time)
-        {
-            return time * PlaySettings.playSpeedMultiplier * Constants.SCROLL_MULT;
-        }
-
-        public static float PositionToTime(float pos)
-        {
-            return pos / PlaySettings.playSpeedMultiplier / Constants.SCROLL_MULT;
         }
 
         public static string DifficultyValueToString(float diffPoint)

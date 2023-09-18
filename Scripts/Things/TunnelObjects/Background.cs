@@ -32,7 +32,7 @@ namespace WacK.Things.TunnelObjects
 				segmentsNode.AddChild(n);
 				segments.Add(n);
 				n.Name = i.ToString();
-				n.SetPosition(new Vector2(i * 1920 / 60, 0));
+				n.SetPosition(new Vector2(i * Constants.BASE_2D_RESOLUTION / 60, 0));
 			}
 		}
 

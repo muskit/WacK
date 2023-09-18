@@ -1,8 +1,9 @@
+using Godot;
+
 namespace WacK
 {
 	public class Constants
 	{
-		public const float SCROLL_MULT = 3f;
-		public const float NOTE_DRAW_DISTANCE = 10;
+		public static readonly float BASE_2D_RESOLUTION = 1920f;
 	}
 }

@@ -20,13 +20,18 @@ namespace WacK.Things.TunnelObjects
 				pos += 1;
 				size -= 2;				
 			}
+			else if (size >= 60)
+			{
+				size = 60;
+				// remove padding
+			}
 
 			var nPos = Position;
-			nPos.X = pos * (1920f/60) - 12;
+			nPos.X = pos * (Constants.BASE_2D_RESOLUTION/60) - 12;
 			Position = nPos;
 
 			var nSize = Size;
-			nSize.X = size * (1920f/60) + 24;
+			nSize.X = size * (Constants.BASE_2D_RESOLUTION/60) + 24;
 			Size = nSize;
 		}
 	}
