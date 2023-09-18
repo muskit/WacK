@@ -129,8 +129,9 @@ namespace WacK.Data.Chart
                                 bpmChangeMeasures.Add(measure.Key);
                             }
                             else
-                                queuedBPM = int.Parse(chartNote.Item2.value);
-                            this.timeSigChgs.Add(
+                                // TODO: handle denominator (note that gets the beat)
+                                queuedBPM = int.Parse(chartNote.Item2.value.Split()[0]);
+                            timeSigChgs.Add(
                                 curTime,
                                 new NoteEvent<(int, int)> (
                                     curTime, mb,
