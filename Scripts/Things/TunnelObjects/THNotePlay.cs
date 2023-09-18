@@ -10,12 +10,17 @@ namespace WacK.Things.TunnelObjects
 		public void Init(NotePlay noteData)
 		{
 			this.noteData = noteData;
-			SetSizePos((int)noteData.position, (int)noteData.size);
+			SetSizePos((int)noteData.pos, (int)noteData.size);
 		}
 		
 		public void SetSizePos(int pos, int size)
 		{
-			// TODO: pos + size >= 60
+			if (3 <= size && size <= 59)
+			{
+				pos += 1;
+				size -= 2;				
+			}
+
 			var nPos = Position;
 			nPos.X = pos * (1920f/60) - 12;
 			Position = nPos;

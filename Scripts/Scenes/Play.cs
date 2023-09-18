@@ -48,8 +48,9 @@ namespace WacK.Scenes
 
 		private Chart chart;
 
-		// scroll speed
-		private const float PIXELS_PER_SECOND = 2000;
+		// base scroll speed, which we can apply multipliers on
+		public static readonly float BASE_PIXELS_PER_SECOND = 800;
+		public static float scrollPxPerSec = BASE_PIXELS_PER_SECOND * 3.5f;
 
 		public override void _Ready()
 		{
@@ -76,7 +77,7 @@ namespace WacK.Scenes
 					{
 						case NotePlayType.HoldStart:
 							nNote = noteHold.Instantiate<THNoteHold>();
-							RealizeHolds(note as NoteHold);
+							((THNoteHold)nNote).InitHold((NoteHold)note, scrollDisplay);
 							break;
 						case NotePlayType.Touch:
 							nNote = noteTouch.Instantiate<THNotePlay>();
@@ -86,46 +87,45 @@ namespace WacK.Scenes
 					}
 					nNote.Init(note);
 					var nPos = nNote.Position;
-					nPos.Y = msNote.Key * -PIXELS_PER_SECOND;
+					nPos.Y = msNote.Key * -scrollPxPerSec;
 					nNote.Position = nPos;
 					noteDisplay.AddChild(nNote);
 				}
 			}
 		}
 
-		private void RealizeHolds(NoteHold note)
-		{
-			List<Vector2> verts = new(note.points.Count*2 + 2);
+		// private void RealizeHolds(NoteHold note)
+		// {
+		// 	List<Vector2> verts = new(note.points.Count*2 + 2);
 
-			// HoldStart's pos
-			verts.Add(new Vector2((float)note.position * 1920/60, (float)note.time * -PIXELS_PER_SECOND));
-			// ascending -- "left" side
-			foreach (var (t, n) in note.points)
-			{
-				verts.Add(new Vector2((float)n.position * 1920/60, t * -PIXELS_PER_SECOND));
-			}
-			// descending -- "right" side
-			foreach (var (t, n) in note.points.Reverse())
-			{
-				verts.Add(new Vector2((float)((int)n.position + (int)n.size) * 1920/60, t * -PIXELS_PER_SECOND));
-			}
-			// HoldStart's pos + size
-			verts.Add(new Vector2((float)((int)note.position + (int)note.size) * 1920/60, (float)note.time * -PIXELS_PER_SECOND));
+		// 	// HoldStart's pos
+		// 	verts.Add(new Vector2((float)note.pos * 1920/60, (float)note.time * -scrollPxPerSec));
+		// 	// ascending -- "left" side
+		// 	foreach (var (t, n) in note.points)
+		// 	{
+		// 		verts.Add(new Vector2((float)n.pos * 1920/60, t * -scrollPxPerSec));
+		// 	}
+		// 	// descending -- "right" side
+		// 	foreach (var (t, n) in note.points.Reverse())
+		// 	{
+		// 		verts.Add(new Vector2((float)((int)n.pos + (int)n.size) * 1920/60, t * -scrollPxPerSec));
+		// 	}
+		// 	// HoldStart's pos + size
+		// 	verts.Add(new Vector2((float)((int)note.pos + (int)note.size) * 1920/60, (float)note.time * -scrollPxPerSec));
 
-			var p2d = new Polygon2D
-			{
-				Polygon = verts.ToArray(),
-				Antialiased = true,
-				Modulate = new Color("#FFFFFFD0")
-            };
-            scrollDisplay.AddChild(p2d);
-		}
+		// 	var p2d = new Polygon2D
+		// 	{
+		// 		Polygon = verts.ToArray(),
+		// 		Antialiased = true,
+		// 		Modulate = new Color("#FFFFFFD0")
+        //     };
+        //     scrollDisplay.AddChild(p2d);
+		// }
 
         public override void _Process(double delta)
         {
 			var nPos = noteDisplay.Position;
-			nPos.Y += (float)delta * PIXELS_PER_SECOND;
-			// nPos.Y = 142375.875f; // Bad Apple Expert: OOB hold note
+			nPos.Y += (float)delta * scrollPxPerSec;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
         }

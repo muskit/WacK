@@ -20,7 +20,7 @@ namespace WacK.Data.Chart
         /// <summary>
         /// The note's radial position out of 60.
         /// </summary>
-        public int? position;
+        public int? pos;
 
         /// <summary>
         /// The radial size of the note.
@@ -32,7 +32,7 @@ namespace WacK.Data.Chart
         {
             this.time = time;
             this.measureBeat = measureBeat;
-            this.position = position;
+            this.pos = position;
             this.size = size;
         }
 

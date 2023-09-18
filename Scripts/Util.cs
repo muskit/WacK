@@ -126,19 +126,6 @@ namespace WacK
             return pos / PlaySettings.playSpeedMultiplier / Constants.SCROLL_MULT;
         }
 
-        // TODO: notes scale to scroll position instead of strikeline
-        // (where calibration offsets can be applied)
-        public static Vector3 NoteScale(float zPos, float zOrigin = 0)
-        {
-            var val = zPos - zOrigin;
-            if (val <= Constants.NOTE_DRAW_DISTANCE)
-            {
-                var ratio = Mathf.Clamp((Constants.NOTE_DRAW_DISTANCE - val) / Constants.NOTE_DRAW_DISTANCE, 0, 1);
-                return new Vector3(ratio, ratio, 1);
-            }
-            return Vector3.Zero;
-        }
-
         public static string DifficultyValueToString(float diffPoint)
         {
             return Mathf.FloorToInt(diffPoint).ToString() + (diffPoint > Mathf.Floor(diffPoint) ? "+" : "");
