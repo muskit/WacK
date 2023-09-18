@@ -55,7 +55,7 @@ namespace WacK.Scenes
 		{
 			get
 			{
-				return BASE_PIXELS_PER_SECOND * PlaySettings.playSpeedMultiplier;
+				return BASE_PIXELS_PER_SECOND * PlaySettings.playSpeedMultiplier.Value;
 			}
 		}
 
