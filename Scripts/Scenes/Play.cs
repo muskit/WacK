@@ -32,6 +32,7 @@ namespace WacK.Scenes
 		// TunnelObjects we can instantiate
 		public static PackedScene noteTouch = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteTouch.tscn");
 		public static PackedScene noteHold = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteHold.tscn");
+		public static PackedScene noteChain = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteChain.tscn");
 
 		[Export]
 		public Control noteDisplay;
@@ -88,6 +89,9 @@ namespace WacK.Scenes
 							break;
 						case NotePlayType.Touch:
 							nNote = noteTouch.Instantiate<THNotePlay>();
+							break;
+						case NotePlayType.Untimed:
+							nNote = noteChain.Instantiate<THNotePlay>();
 							break;
 						default:
 							continue;
