@@ -22,6 +22,7 @@ namespace WacK.Scenes
 		{
 			chartPath = chPath;
 			soundPath = snPath;
+			GD.Print($"Chart: {chartPath}\nSound: {soundPath}");
 		}
 	}
 	public partial class Play : Node
@@ -34,6 +35,14 @@ namespace WacK.Scenes
 		public static PackedScene noteHold = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteHold.tscn");
 		public static PackedScene noteChain = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteChain.tscn");
 
+		[ExportCategory("Audio")]
+		[Export]
+		private BGM bgmController;
+		[Export]
+		private SFX sfxController;
+
+		[ExportCategory("2D")]
+		[ExportSubgroup("2D Things")]
 		[Export]
 		public Control noteDisplay;
 		[Export]
@@ -41,6 +50,7 @@ namespace WacK.Scenes
 		[Export]
 		public Background background;
 
+		[ExportSubgroup("Out-of-bounds Viewports")]
 		[Export]
 		public Viewport mainViewport;
 		[Export]
@@ -69,6 +79,10 @@ namespace WacK.Scenes
 			// parse mer and create chart for current play
 			chart = new(playParams.chartPath);
 			RealizeChart();
+
+			// audio setup
+			bgmController.LoadFromUser(playParams.soundPath);
+			bgmController.Play();
 		}
 
 		/// <summary>
@@ -107,8 +121,10 @@ namespace WacK.Scenes
 
         public override void _Process(double delta)
         {
+			double time = bgmController.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
+			
 			var nPos = noteDisplay.Position;
-			nPos.Y += (float)delta * scrollPxPerSec;
+			nPos.Y = ((float)time * scrollPxPerSec) + 1920;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
         }

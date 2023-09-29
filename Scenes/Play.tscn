@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=18 format=3 uid="uid://bqh00ot0csqmk"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/Play.cs" id="1_d6iv3"]
+[ext_resource type="Script" path="res://Scripts/Scenes/Play/Play.cs" id="1_asytu"]
 [ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/Background.tscn" id="2_8g6gv"]
 [ext_resource type="Shader" path="res://Shaders/Cutout2D.gdshader" id="3_rjbyl"]
+[ext_resource type="Script" path="res://Scripts/Scenes/Play/Audio/BGM.cs" id="4_c2dke"]
+[ext_resource type="Script" path="res://Scripts/Scenes/Play/Audio/SFX.cs" id="5_owrd5"]
 
 [sub_resource type="Environment" id="Environment_nefjb"]
 ambient_light_source = 1
@@ -47,7 +49,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_40gjx")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ln6xl"]
-viewport_path = NodePath("ViewportView/2D Viewport")
+viewport_path = NodePath("2D Viewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rv8i"]
 resource_local_to_scene = true
@@ -59,7 +61,7 @@ uv1_scale = Vector3(-1, 1, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_w20vk"]
 viewport_path = NodePath("Mask")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lf1uh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bs53h"]
 resource_local_to_scene = true
 shader = ExtResource("3_rjbyl")
 shader_parameter/mask = SubResource("ViewportTexture_w20vk")
@@ -78,14 +80,16 @@ width = 1920
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_27qpl"]
 blend_mode = 1
 
-[node name="Play" type="Node" node_paths=PackedStringArray("noteDisplay", "scrollDisplay", "background", "mainViewport", "leftViewport", "rightViewport")]
-script = ExtResource("1_d6iv3")
-noteDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Notes Scroll")
-scrollDisplay = NodePath("ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll")
-background = NodePath("ViewportView/2D Viewport/Viewport Control/Background")
-mainViewport = NodePath("ViewportView/2D Viewport")
-leftViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Left/Viewport Left")
-rightViewport = NodePath("ViewportView/2D Viewport/Viewport Control/ViewportView Right/Viewport Right")
+[node name="Play" type="Node" node_paths=PackedStringArray("bgmController", "sfxController", "noteDisplay", "scrollDisplay", "background", "mainViewport", "leftViewport", "rightViewport")]
+script = ExtResource("1_asytu")
+bgmController = NodePath("AudioStreamPlayer BGM")
+sfxController = NodePath("AudioStreamPlayer SFX")
+noteDisplay = NodePath("2D Viewport/Viewport Control/Notes Scroll")
+scrollDisplay = NodePath("2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport/Holds Scroll")
+background = NodePath("2D Viewport/Viewport Control/Background")
+mainViewport = NodePath("2D Viewport")
+leftViewport = NodePath("2D Viewport/Viewport Control/ViewportView Left/Viewport Left")
+rightViewport = NodePath("2D Viewport/Viewport Control/ViewportView Right/Viewport Right")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nefjb")
@@ -112,20 +116,7 @@ mesh = SubResource("ArrayMesh_qc82q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
 
-[node name="ViewportView" type="SubViewportContainer" parent="."]
-modulate = Color(1, 1, 1, 0.329412)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -960.0
-offset_top = -1920.0
-offset_right = 960.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="2D Viewport" type="SubViewport" parent="ViewportView"]
+[node name="2D Viewport" type="SubViewport" parent="."]
 disable_3d = true
 own_world_3d = true
 transparent_bg = true
@@ -134,7 +125,7 @@ msaa_2d = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Viewport Control" type="Control" parent="ViewportView/2D Viewport"]
+[node name="Viewport Control" type="Control" parent="2D Viewport"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,31 +133,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera2D Main" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="Camera2D Main" type="Camera2D" parent="2D Viewport/Viewport Control"]
 position = Vector2(0, -1920)
 offset = Vector2(0, 1920)
 anchor_mode = 0
 editor_draw_screen = false
 
-[node name="Background" parent="ViewportView/2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
-material = SubResource("ShaderMaterial_lf1uh")
+[node name="Background" parent="2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
+material = SubResource("ShaderMaterial_bs53h")
 layout_mode = 1
 offset_top = -1920.0
 offset_right = 1920.0
 
-[node name="Holds ViewportView" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="Holds ViewportView" type="SubViewportContainer" parent="2D Viewport/Viewport Control"]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1920.0
 
-[node name="Holds Viewport" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView"]
+[node name="Holds Viewport" type="SubViewport" parent="2D Viewport/Viewport Control/Holds ViewportView"]
 transparent_bg = true
 handle_input_locally = false
 screen_space_aa = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Holds Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
+[node name="Holds Scroll" type="Control" parent="2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,7 +167,7 @@ offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Holds Filter" type="TextureRect" parent="ViewportView/2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
+[node name="Holds Filter" type="TextureRect" parent="2D Viewport/Viewport Control/Holds ViewportView/Holds Viewport"]
 material = SubResource("CanvasItemMaterial_5ymar")
 custom_minimum_size = Vector2(1920, 1920)
 anchors_preset = 15
@@ -190,20 +181,22 @@ grow_vertical = 2
 rotation = 1.5708
 texture = SubResource("GradientTexture1D_pha5y")
 
-[node name="Notes Scroll" type="Control" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="Notes Scroll" type="Control" parent="2D Viewport/Viewport Control"]
 material = SubResource("CanvasItemMaterial_27qpl")
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_top = -1820.0
+offset_bottom = -1820.0
 grow_vertical = 0
 
-[node name="ViewportView Left" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="ViewportView Left" type="SubViewportContainer" parent="2D Viewport/Viewport Control"]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1920.0
 
-[node name="Viewport Left" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Left"]
+[node name="Viewport Left" type="SubViewport" parent="2D Viewport/Viewport Control/ViewportView Left"]
 disable_3d = true
 own_world_3d = true
 transparent_bg = true
@@ -212,12 +205,12 @@ msaa_2d = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Camera2D Left" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Left/Viewport Left"]
+[node name="Camera2D Left" type="Camera2D" parent="2D Viewport/Viewport Control/ViewportView Left/Viewport Left"]
 position = Vector2(0, -1920)
 offset = Vector2(-1921, 1920)
 anchor_mode = 0
 
-[node name="ViewportView Right" type="SubViewportContainer" parent="ViewportView/2D Viewport/Viewport Control"]
+[node name="ViewportView Right" type="SubViewportContainer" parent="2D Viewport/Viewport Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -225,7 +218,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Viewport Right" type="SubViewport" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Right"]
+[node name="Viewport Right" type="SubViewport" parent="2D Viewport/Viewport Control/ViewportView Right"]
 disable_3d = true
 own_world_3d = true
 transparent_bg = true
@@ -234,7 +227,26 @@ msaa_2d = 1
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
 
-[node name="Camera2D Right" type="Camera2D" parent="ViewportView/2D Viewport/Viewport Control/ViewportView Right/Viewport Right"]
+[node name="Camera2D Right" type="Camera2D" parent="2D Viewport/Viewport Control/ViewportView Right/Viewport Right"]
 position = Vector2(0, -1920)
 offset = Vector2(1921, 1920)
 anchor_mode = 0
+
+[node name="ViewportView" type="SubViewportContainer" parent="."]
+modulate = Color(1, 1, 1, 0.329412)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -1920.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="AudioStreamPlayer BGM" type="AudioStreamPlayer" parent="."]
+script = ExtResource("4_c2dke")
+
+[node name="AudioStreamPlayer SFX" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_owrd5")

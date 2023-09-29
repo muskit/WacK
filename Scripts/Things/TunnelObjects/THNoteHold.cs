@@ -25,7 +25,6 @@ namespace WacK.Things.TunnelObjects
             holdScroll.AddChild(longThing);
             longThing.Position = new Vector2(0, (float)-holdNoteData.time * Play.scrollPxPerSec);
 
-			GD.Print($"{holdNoteData.points.Count}");
             if (holdNoteData.points.Count > 0)
             {
                 NotePlay lastHold = holdNoteData;

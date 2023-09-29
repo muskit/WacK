@@ -91,7 +91,6 @@ namespace WacK.Scenes
 			var songPath = $"user://songs/{songsButton.Text}";
 			var chartPath = $"{songPath}/{difficultyButton.Selected}.mer";
 			var soundPath = $"{songPath}/{soundButton.Text}";
-			GD.Print($"Song: {songPath}\nChart: {chartPath}\nSound: {soundPath}");
 
 			// folder check
 			using var dir = DirAccess.Open(songPath);
