@@ -63,9 +63,9 @@ namespace WacK.Scenes
 		public Viewport rightViewport;
 
 		private Chart chart;
-		// Indices point to the NEXT thing to look for. We process that thing once
-		// the song time is at or later than the thing's time.
-		private int chordNextIdx = 0;
+		// Indices point to the NEXT thing in chart to look for. We process
+		// that thing once the song time is at or later than the thing's time.
+		private int playNextIdx = 0;
 		private int eventNextIdx = 0;
 
 		// base scroll speed, which we can apply multipliers on
@@ -156,7 +156,7 @@ namespace WacK.Scenes
 				
 				foreach (var e in l)
 				{
-					GD.Print($"Passed event {e.type}(pos={e.pos},size={e.size}) at {t}");
+					GD.Print($"Passed event {e.type} at {t}");
 					switch (e.type)
 					{
 						case NoteEventType.BGAdd:
@@ -176,29 +176,6 @@ namespace WacK.Scenes
 			nPos.Y = time * ScrollPxPerSec;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
-		}
-
-		private async void TestBGAnim()
-		{
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-
-			// clockwise all
-			background.SetSegments(0, 60, true, DrawDirection.Clockwise);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-			background.SetSegments(0, 60, false, DrawDirection.Clockwise);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-
-			// counterclockwise all
-			background.SetSegments(0, 60, true, DrawDirection.CounterClockwise);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-			background.SetSegments(0, 60, false, DrawDirection.CounterClockwise);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-
-			// center all
-			background.SetSegments(0, 60, true, DrawDirection.Center);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
-			background.SetSegments(0, 60, false, DrawDirection.Center);
-			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
 		}
 
         public override void _Process(double delta)

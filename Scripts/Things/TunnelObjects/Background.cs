@@ -80,7 +80,6 @@ namespace WacK.Things.TunnelObjects
 				}
 				await ToSignal(GetTree(), "process_frame");
 			}
-			GD.Print("Finished BG anim!");
 		}
 	}
 }

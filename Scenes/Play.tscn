@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bqh00ot0csqmk"]
+[gd_scene load_steps=19 format=3 uid="uid://bqh00ot0csqmk"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/Play/Play.cs" id="1_asytu"]
 [ext_resource type="PackedScene" uid="uid://cyetvgmwnoy8l" path="res://Things/Background.tscn" id="2_8g6gv"]
+[ext_resource type="Texture2D" uid="uid://cfvv520hv5lss" path="res://_Assets/Textures/background-placeholder.jpg" id="2_k05nq"]
 [ext_resource type="Shader" path="res://Shaders/Cutout2D.gdshader" id="3_rjbyl"]
 [ext_resource type="Script" path="res://Scripts/Scenes/Play/Audio/BGM.cs" id="4_c2dke"]
 [ext_resource type="Script" path="res://Scripts/Scenes/Play/Audio/SFX.cs" id="5_owrd5"]
 
 [sub_resource type="Environment" id="Environment_nefjb"]
+background_mode = 3
 ambient_light_source = 1
 ambient_light_energy = 0.0
 reflected_light_source = 1
@@ -61,7 +63,7 @@ uv1_scale = Vector3(-1, 1, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_w20vk"]
 viewport_path = NodePath("Mask")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nje4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2pv0x"]
 resource_local_to_scene = true
 shader = ExtResource("3_rjbyl")
 shader_parameter/mask = SubResource("ViewportTexture_w20vk")
@@ -116,6 +118,25 @@ mesh = SubResource("ArrayMesh_qc82q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rv8i")
 
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_k05nq")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="2D Viewport" type="SubViewport" parent="."]
 disable_3d = true
 own_world_3d = true
@@ -140,7 +161,7 @@ anchor_mode = 0
 editor_draw_screen = false
 
 [node name="Background" parent="2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
-material = SubResource("ShaderMaterial_7nje4")
+material = SubResource("ShaderMaterial_2pv0x")
 layout_mode = 1
 offset_top = -1920.0
 offset_right = 1920.0

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcindeb5bakb3"]
+[gd_scene load_steps=4 format=3 uid="uid://bcindeb5bakb3"]
 
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_e4xxi"]
 [ext_resource type="Texture2D" uid="uid://cfm2r0ha81eum" path="res://_Assets/Textures/Notes/SwipeCCW.png" id="2_yb0qd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_up7en"]
+font_size = 86
 
 [node name="NoteSwipeCCW" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
@@ -23,3 +26,11 @@ grow_vertical = 2
 texture = ExtResource("2_yb0qd")
 patch_margin_left = 12
 patch_margin_right = 12
+
+[node name="Label" type="Label" parent="."]
+offset_left = 9.0
+offset_top = -159.0
+offset_right = 421.0
+offset_bottom = -48.0
+text = ">>>>>>>>>>>>>>>>"
+label_settings = SubResource("LabelSettings_up7en")
