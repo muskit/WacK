@@ -23,7 +23,7 @@ namespace WacK.Things.TunnelObjects
         {
             longThing = new Node2D();
             holdScroll.AddChild(longThing);
-            longThing.Position = new Vector2(0, (float)-holdNoteData.time * Play.scrollPxPerSec);
+            longThing.Position = new Vector2(0, (float)-holdNoteData.time * Play.ScrollPxPerSec);
 
             if (holdNoteData.points.Count > 0)
             {
@@ -31,7 +31,7 @@ namespace WacK.Things.TunnelObjects
                 float segmentPos = 0;
 				foreach (var (_, curNote) in holdNoteData.points)
 				{
-                    var curLength = Play.scrollPxPerSec * (float)(curNote.time - lastHold.time);
+                    var curLength = Play.ScrollPxPerSec * (float)(curNote.time - lastHold.time);
                     var segment = CreateSegment(lastHold, curNote);
                     longThing.AddChild(segment);
                     segment.Position = new Vector2(0, segmentPos);
@@ -50,7 +50,7 @@ namespace WacK.Things.TunnelObjects
         {
 			float minuteSize = Constants.BASE_2D_RESOLUTION / 60;
 
-            var length = Play.scrollPxPerSec * (float)(destination.time - origin.time);
+            var length = Play.ScrollPxPerSec * (float)(destination.time - origin.time);
             var verts = new Vector2[4];
 
             int originPos;

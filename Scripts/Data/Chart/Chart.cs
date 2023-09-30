@@ -18,7 +18,7 @@ namespace WacK.Data.Chart
         public SortedList<float, List<NotePlay>> playNotes { get; private set; }
         public SortedList<float, NoteEvent<(int, int)>> timeSigChgs { get; private set; }
         public SortedList<float, NoteEvent<float>> tempoChgs { get; private set; }
-        public SortedList<float, NoteEvent<int>> events { get; private set; }
+        public SortedList<float, List<NoteEvent<int>>> events { get; private set; }
 
         public Chart(string chartPath)
         {
@@ -244,7 +244,6 @@ namespace WacK.Data.Chart
 						}
                         else
                         {
-                            // only add notes that aren't part of the hold
                             if (!playNotes.ContainsKey(curTime))
                             {
                                 playNotes[curTime] = new List<NotePlay>();
@@ -270,11 +269,15 @@ namespace WacK.Data.Chart
 						this.timeSigChgs[curTime] = neii;
 					}
 
-                    // NoteEvent<int>
+                    // NoteEvent<int> -- BG Change
 					var nei = curNote as NoteEvent<int>;
                     if (nei != null)
                     {
-						this.events[curTime] = nei;
+						if (!events.ContainsKey(curTime))
+                        {
+                            events[curTime] = new List<NoteEvent<int>>();
+                        }
+                        events[curTime].Add(nei);
 					}
 
 					// update previous states

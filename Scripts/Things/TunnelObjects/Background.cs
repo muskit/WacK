@@ -18,21 +18,22 @@ namespace WacK.Things.TunnelObjects
 	public partial class Background : Node
 	{
 		[Export]
-		private ColorRect firstSegment;
-		private List<ColorRect> segments = new(60);
+		private TextureRect firstSegment;
+		private List<TextureRect> segments = new(60);
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
 			var segmentsNode = FindChild("Segment Masks");
+			firstSegment.Visible = false;
 			segments.Add(firstSegment);
 			for (int i = 1; i < 60; ++i)
 			{
-				var n = (ColorRect)firstSegment.Duplicate();
+				var n = (TextureRect)firstSegment.Duplicate();
 				segmentsNode.AddChild(n);
 				segments.Add(n);
 				n.Name = i.ToString();
-				n.SetPosition(new Vector2(i * Constants.BASE_2D_RESOLUTION / 60, 0));
+				n.SetPosition(new Vector2(i * Constants.BASE_2D_RESOLUTION / 60, Constants.BASE_2D_RESOLUTION));
 			}
 		}
 
@@ -43,7 +44,7 @@ namespace WacK.Things.TunnelObjects
 			// GD.Print($"{direction} = {state}. Even? {size % 2 == 0}");
 
 			double timer = 0;
-			double time = .5f;
+			double time = .1f;
 
 			int centerSeg = pos + size/2;
 			while (timer < time)
@@ -79,6 +80,7 @@ namespace WacK.Things.TunnelObjects
 				}
 				await ToSignal(GetTree(), "process_frame");
 			}
+			GD.Print("Finished BG anim!");
 		}
 	}
 }

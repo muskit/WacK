@@ -63,10 +63,14 @@ namespace WacK.Scenes
 		public Viewport rightViewport;
 
 		private Chart chart;
+		// Indices point to the NEXT thing to look for. We process that thing once
+		// the song time is at or later than the thing's time.
+		private int chordNextIdx = 0;
+		private int eventNextIdx = 0;
 
 		// base scroll speed, which we can apply multipliers on
 		public static readonly float BASE_PIXELS_PER_SECOND = 800;
-		public static float scrollPxPerSec
+		public static float ScrollPxPerSec
 		{
 			get
 			{
@@ -82,17 +86,19 @@ namespace WacK.Scenes
 
 			// parse mer and create chart for current play
 			chart = new(playParams.chartPath);
-			RealizeChart();
+			InstantiateChartVisuals();
 
-			// audio setup
+			// // audio setup
 			bgmController.LoadFromUser(playParams.soundPath);
 			bgmController.Play();
+
+			// TestBGAnim();
 		}
 
 		/// <summary>
 		/// Instantiates necessary notes onto noteDisplay for the player to see.
 		/// </summary>
-		private void RealizeChart()
+		private void InstantiateChartVisuals()
 		{	
 			foreach (var msNote in chart.playNotes)
 			{
@@ -128,21 +134,76 @@ namespace WacK.Scenes
 					}
 					nNote.Init(note);
 					var nPos = nNote.Position;
-					nPos.Y = msNote.Key * -scrollPxPerSec;
+					nPos.Y = msNote.Key * -ScrollPxPerSec;
 					nNote.Position = nPos;
 					noteDisplay.AddChild(nNote);
 				}
 			}
 		}
 
-        public override void _Process(double delta)
-        {
-			double time = bgmController.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
+		/// <summary>
+		/// Process current game state. Should only run if playing a chart and unpaused.
+		/// </summary>
+		private void PlayLoop()
+		{
+			float time = bgmController.CurTime;
+
+			// check next event
+			while (eventNextIdx < chart.events.Count && time >= chart.events.Keys[eventNextIdx])
+			{
+				var t = chart.events.Keys[eventNextIdx];
+				var l = chart.events[t];
+				
+				foreach (var e in l)
+				{
+					GD.Print($"Passed event {e.type}(pos={e.pos},size={e.size}) at {t}");
+					switch (e.type)
+					{
+						case NoteEventType.BGAdd:
+							background.SetSegments((int)e.pos, (int)e.size, true, (DrawDirection)e.value);
+							break;
+						case NoteEventType.BGRem:
+							background.SetSegments((int)e.pos, (int)e.size, false, (DrawDirection)e.value);
+							break;
+					}
+				}
+				
+				eventNextIdx++;
+			}
 			
+			// set scroll
 			var nPos = noteDisplay.Position;
-			nPos.Y = bgmController.CurTime * scrollPxPerSec;
+			nPos.Y = time * ScrollPxPerSec;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
+		}
+
+		private async void TestBGAnim()
+		{
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+
+			// clockwise all
+			background.SetSegments(0, 60, true, DrawDirection.Clockwise);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+			background.SetSegments(0, 60, false, DrawDirection.Clockwise);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+
+			// counterclockwise all
+			background.SetSegments(0, 60, true, DrawDirection.CounterClockwise);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+			background.SetSegments(0, 60, false, DrawDirection.CounterClockwise);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+
+			// center all
+			background.SetSegments(0, 60, true, DrawDirection.Center);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+			background.SetSegments(0, 60, false, DrawDirection.Center);
+			await ToSignal(GetTree().CreateTimer(1.5), SceneTreeTimer.SignalName.Timeout);
+		}
+
+        public override void _Process(double delta)
+        {
+			PlayLoop();
         }
 
         private void OnDestroy()

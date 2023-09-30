@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyetvgmwnoy8l"]
+[gd_scene load_steps=12 format=3 uid="uid://cyetvgmwnoy8l"]
 
 [ext_resource type="Shader" path="res://Shaders/Cutout2D.gdshader" id="1_f6ion"]
 [ext_resource type="Texture2D" uid="uid://dkohutwp0yujj" path="res://_Assets/Textures/HitLine/BGLine.png" id="1_w0gbp"]
@@ -22,11 +22,21 @@ shader_parameter/mask = SubResource("ViewportTexture_oigfv")
 
 [sub_resource type="Gradient" id="Gradient_djnn4"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.0308856, 0.0596563, 0.141577, 0.894118)
+colors = PackedColorArray(0.0313726, 0.0588235, 0.141176, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kn5i7"]
 gradient = SubResource("Gradient_djnn4")
 width = 2048
+
+[sub_resource type="Gradient" id="Gradient_n1451"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.376518)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pibib"]
+gradient = SubResource("Gradient_n1451")
+width = 1920
 
 [node name="Background" type="Control" node_paths=PackedStringArray("firstSegment")]
 material = SubResource("ShaderMaterial_h3xxm")
@@ -47,6 +57,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SubViewport" type="SubViewport" parent="FullBG"]
+transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1920)
 render_target_update_mode = 4
@@ -66,8 +77,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1920.0
+offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -1.5708
 texture = SubResource("GradientTexture1D_kn5i7")
 expand_mode = 1
 
@@ -114,6 +128,10 @@ expand_mode = 1
 transparent_bg = true
 size = Vector2i(1920, 1920)
 
-[node name="0" type="ColorRect" parent="Segment Masks"]
-offset_right = 32.0
-offset_bottom = 1920.0
+[node name="0" type="TextureRect" parent="Segment Masks"]
+anchors_preset = -1
+offset_top = 1920.0
+offset_right = 1920.0
+offset_bottom = 1952.0
+rotation = -1.5708
+texture = SubResource("GradientTexture1D_pibib")
