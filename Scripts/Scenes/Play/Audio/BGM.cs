@@ -4,6 +4,19 @@ using System;
 
 public partial class BGM : AudioStreamPlayer
 {
+	// latency compensation
+	private ulong timeStartUsec;
+	private float timeDelay;
+	
+	public float CurTime
+	{
+		get
+		{
+			float time = (Time.GetTicksUsec() - timeStartUsec) / 1000000f;
+			return time - timeDelay;
+		}
+	}
+
 	public void LoadFromUser(string path)
 	{
 		if (!path.StartsWith("user://"))
@@ -42,5 +55,12 @@ public partial class BGM : AudioStreamPlayer
 				GD.PrintErr("External OGGs not supported in Godot 4.1...");
 				break;
 		}
+	}
+
+	public void Play()
+	{
+		timeStartUsec = Time.GetTicksUsec();
+		timeDelay = (float) (AudioServer.GetTimeToNextMix() + AudioServer.GetOutputLatency());
+		base.Play();
 	}
 }

@@ -124,7 +124,7 @@ namespace WacK.Scenes
 			double time = bgmController.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
 			
 			var nPos = noteDisplay.Position;
-			nPos.Y = ((float)time * scrollPxPerSec) + 1920;
+			nPos.Y = (bgmController.CurTime * scrollPxPerSec) + 1910;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
         }
