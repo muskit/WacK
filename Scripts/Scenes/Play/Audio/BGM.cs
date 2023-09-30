@@ -31,7 +31,7 @@ public partial class BGM : AudioStreamPlayer
 			GD.PrintErr($"Unable to open {path} for loading audio! {FileAccess.GetOpenError()}");
 			return;
 		}
-		GD.Print("hi");
+		
 		var ext = path.Split('.')[^1].ToLower();
 		switch (ext)
 		{

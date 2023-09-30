@@ -8,9 +8,9 @@ namespace WacK.Data.Chart
 		HoldStart,
 		HoldMid,
 		HoldEnd,
-		Untimed,
-		SwipeIn,
-		SwipeOut,
+		Chain,
+		SnapIn,
+		SnapOut,
 		SwipeCW,
 		SwipeCCW,
 	}

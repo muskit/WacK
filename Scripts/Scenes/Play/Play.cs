@@ -34,6 +34,10 @@ namespace WacK.Scenes
 		public static PackedScene noteTouch = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteTouch.tscn");
 		public static PackedScene noteHold = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteHold.tscn");
 		public static PackedScene noteChain = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteChain.tscn");
+		public static PackedScene noteCW = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteSwipeCW.tscn");
+		public static PackedScene noteCCW = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteSwipeCCW.tscn");
+		public static PackedScene noteIn = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteSnapIn.tscn");
+		public static PackedScene noteOut = GD.Load<PackedScene>("res://Things/TunnelObjects/Notes/NoteSnapOut.tscn");
 
 		[ExportCategory("Audio")]
 		[Export]
@@ -104,8 +108,20 @@ namespace WacK.Scenes
 						case NotePlayType.Touch:
 							nNote = noteTouch.Instantiate<THNotePlay>();
 							break;
-						case NotePlayType.Untimed:
+						case NotePlayType.Chain:
 							nNote = noteChain.Instantiate<THNotePlay>();
+							break;
+						case NotePlayType.SwipeCW:
+							nNote = noteCW.Instantiate<THNotePlay>();
+							break;
+						case NotePlayType.SwipeCCW:
+							nNote = noteCCW.Instantiate<THNotePlay>();
+							break;
+						case NotePlayType.SnapIn:
+							nNote = noteIn.Instantiate<THNotePlay>();
+							break;
+						case NotePlayType.SnapOut:
+							nNote = noteOut.Instantiate<THNotePlay>();
 							break;
 						default:
 							continue;
@@ -124,7 +140,7 @@ namespace WacK.Scenes
 			double time = bgmController.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
 			
 			var nPos = noteDisplay.Position;
-			nPos.Y = (bgmController.CurTime * scrollPxPerSec) + 1910;
+			nPos.Y = bgmController.CurTime * scrollPxPerSec;
 			noteDisplay.Position = nPos;
 			scrollDisplay.Position = nPos;
         }

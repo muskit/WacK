@@ -180,21 +180,21 @@ namespace WacK.Data.Chart
                             curNote = new NotePlay(
                                 curTime, mb,
                                 chartNote.Item2.position, chartNote.Item2.size,
-                                type: NotePlayType.Untimed
+                                type: NotePlayType.Chain
                             );
                             break;
                         case MerType.SwipeIn:
                             curNote = new NotePlay(
                                 curTime, mb,
                                 chartNote.Item2.position, chartNote.Item2.size,
-                                type: NotePlayType.SwipeIn
+                                type: NotePlayType.SnapIn
                             );
                             break;
                         case MerType.SwipeOut:
                             curNote = new NotePlay(
                                 curTime, mb,
                                 chartNote.Item2.position, chartNote.Item2.size,
-                                type: NotePlayType.SwipeOut
+                                type: NotePlayType.SnapOut
                             );
                             break;
                         case MerType.SwipeCW:
@@ -291,8 +291,8 @@ namespace WacK.Data.Chart
                 List<Note> chordableNotes = new List<Note>();
                 foreach (NotePlay n in pair.Value)
                 {
-                    if (n.type != NotePlayType.HoldEnd && n.type != NotePlayType.Untimed)
-                    if (!(new NotePlayType[] { NotePlayType.HoldEnd, NotePlayType.Untimed, NotePlayType.HoldMid }).Contains(n.type))
+                    if (n.type != NotePlayType.HoldEnd && n.type != NotePlayType.Chain)
+                    if (!(new NotePlayType[] { NotePlayType.HoldEnd, NotePlayType.Chain, NotePlayType.HoldMid }).Contains(n.type))
                         chordableNotes.Add(n);
                 }
                 if (chordableNotes.Count >= 2)
