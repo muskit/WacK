@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_lmk57"]
 [ext_resource type="Texture2D" uid="uid://cr2a3fc5nu7js" path="res://_Assets/Textures/Notes/SnapIn.png" id="2_ipqj7"]
 
-[node name="NoteSnapIn" type="Control"]
+[node name="NoteSnapIn" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 24.0
 script = ExtResource("1_lmk57")
+noteBase = NodePath("NinePatchRect")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1

@@ -3,12 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://cnsbqiharp0jh" path="res://_Assets/Textures/Notes/Touch.png" id="1_hnm2k"]
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_p334j"]
 
-[node name="NoteTouch" type="Control"]
+[node name="NoteTouch" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 24.0
 script = ExtResource("1_p334j")
+noteBase = NodePath("NinePatchRect")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
