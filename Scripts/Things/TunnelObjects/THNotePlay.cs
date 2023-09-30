@@ -5,6 +5,8 @@ namespace WacK.Things.TunnelObjects
 {
 	public partial class THNotePlay : Control
 	{
+		[Export]
+		private NinePatchRect noteBase;
 		public NotePlay noteData;
 		
 		public void Init(NotePlay noteData)
@@ -23,7 +25,9 @@ namespace WacK.Things.TunnelObjects
 			else if (size >= 60)
 			{
 				size = 60;
-				// remove padding
+				noteBase.RegionRect = new Rect2(12, 0, new Vector2(488, 36));
+				noteBase.PatchMarginLeft = 0;
+				noteBase.PatchMarginRight = 0;
 			}
 
 			var nPos = Position;
