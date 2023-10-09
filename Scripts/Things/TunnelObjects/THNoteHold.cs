@@ -26,14 +26,15 @@ namespace WacK.Things.TunnelObjects
             holdScroll.AddChild(longThing);
             longThing.Position = new Vector2(0, (float)-holdData.time * Play.ScrollPxPerSec);
 
-            // only draw visible hold-mids
-            var drawableMids = holdData.points.Values.Where(e => e.type == NotePlayType.HoldMid || e.type == NotePlayType.HoldEnd).ToList();
+            // don't draw invisible hold-mids
+            var drawableMids = holdData.points.Values.Where(e => e.type != NotePlayType.HoldMidInvis).ToList();
             if (drawableMids.Count > 0)
             {
                 var lastMid = holdData.points.Values[^1];
                 if (drawableMids[^1] != lastMid) drawableMids.Add(lastMid);
             }
-            else // would most likely happen if HoldEnd is missing
+            else
+                // would most likely happen if HoldEnd is missing
                 drawableMids = holdData.points.Values.ToList();
 
             if (drawableMids.Count() > 0)

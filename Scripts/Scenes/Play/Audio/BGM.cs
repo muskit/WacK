@@ -49,6 +49,8 @@ public partial class BGM : AudioStreamPlayer
 				var buffer = f.GetBuffer((long)f.GetLength());
 
 				/// WAV HEADER PARSING ///
+				/// https://medium.com/swlh/reversing-a-wav-file-in-c-482fc3dfe3c4
+				
 				// bit format
 				var bf = new byte[]{ buffer[34], buffer[35] };
 				var bitFormat = BitConverter.ToUInt16(bf) switch
