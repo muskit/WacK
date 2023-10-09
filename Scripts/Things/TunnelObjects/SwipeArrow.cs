@@ -25,11 +25,11 @@ namespace WacK.Things.TunnelObjects
         public void SetPosSize(int pos, int size)
 		{
 			var p = Position;
-			p.X = Constants.BASE_2D_RESOLUTION / 60 * pos;
+			p.X = Constants.BASE_2D_RESOLUTION / 60 * pos + Constants.BASE_2D_RESOLUTION / 120;
 			Position = p;
 
 			var s = Size;
-			s.Y = Constants.BASE_2D_RESOLUTION / 60 * size;
+			s.Y = Constants.BASE_2D_RESOLUTION / 60 * size - Constants.BASE_2D_RESOLUTION / 60;
 			Size = s;
 			shader.SetShaderParameter("TileMult", s.Y / 64);
 		}

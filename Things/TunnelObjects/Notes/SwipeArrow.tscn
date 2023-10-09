@@ -20,9 +20,9 @@ width = 1
 
 [node name="SwipeArrow" type="TextureRect"]
 material = SubResource("ShaderMaterial_hasp1")
-offset_top = -70.0
-offset_right = 175.0
-offset_bottom = 698.0
+offset_top = -30.0
+offset_right = 125.0
+offset_bottom = 738.0
 rotation = -1.5708
 texture = SubResource("GradientTexture1D_afqg4")
 script = ExtResource("4_ep8x4")
