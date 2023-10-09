@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://jn0eb8txbjro"]
+[gd_scene load_steps=7 format=3 uid="uid://jn0eb8txbjro"]
 
 [ext_resource type="Shader" uid="uid://dm5rgp78v61ha" path="res://Shaders/SwipeArrow.tres" id="1_3a7c4"]
 [ext_resource type="Texture2D" uid="uid://cmaq66vbi80ug" path="res://_Assets/Textures/Notes/SlideArrow_Texture.png" id="2_nviet"]
 [ext_resource type="Texture2D" uid="uid://kjoqem41xatr" path="res://_Assets/Textures/Notes/SlideArrow_Mask.png" id="3_qcc22"]
+[ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/SwipeArrow.cs" id="4_ep8x4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hasp1"]
+resource_local_to_scene = true
 shader = ExtResource("1_3a7c4")
-shader_parameter/Color = Color(0, 1, 0, 1)
+shader_parameter/ArrowColor = Color(0, 1, 0, 1)
+shader_parameter/isCwShape = false
+shader_parameter/TileMult = 6.0
 shader_parameter/scrollMultiplier = 2.0
 shader_parameter/arrow = ExtResource("2_nviet")
 shader_parameter/mask = ExtResource("3_qcc22")
@@ -14,9 +18,11 @@ shader_parameter/mask = ExtResource("3_qcc22")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_afqg4"]
 width = 1
 
-[node name="Control" type="TextureRect"]
+[node name="SwipeArrow" type="TextureRect"]
 material = SubResource("ShaderMaterial_hasp1")
-offset_right = 275.0
-offset_bottom = 1920.0
+offset_top = -70.0
+offset_right = 175.0
+offset_bottom = 698.0
 rotation = -1.5708
 texture = SubResource("GradientTexture1D_afqg4")
+script = ExtResource("4_ep8x4")

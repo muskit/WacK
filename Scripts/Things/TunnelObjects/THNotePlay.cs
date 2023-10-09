@@ -9,34 +9,54 @@ namespace WacK.Things.TunnelObjects
 		private NinePatchRect noteBase;
 		public NotePlay noteData;
 		
-		public void Init(NotePlay noteData)
+		public async void Init(NotePlay noteData)
 		{
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			
 			this.noteData = noteData;
-			SetSizePos((int)noteData.pos, (int)noteData.size);
+			SetPosSize((int)noteData.pos, (int)noteData.size);
+
+			// handle swipe arrow color
+			if (noteData.type == NotePlayType.SwipeCW)
+			{
+				var n = (SwipeArrow) FindChild("SwipeArrow");
+				n.SetCW(noteData.type == NotePlayType.SwipeCW);
+			}
 		}
 		
-		public void SetSizePos(int pos, int size)
+		public void SetPosSize(int pos, int size)
 		{
+			var nbPos = pos;
+			var nbSize = size;
+			// TODO: end caps peak into bounds
 			if (3 <= size && size <= 59)
 			{
-				pos += 1;
-				size -= 2;				
+				nbPos += 1;
+				nbSize -= 2;
 			}
 			else if (size >= 60)
 			{
 				size = 60;
+				nbSize = 60;
 				noteBase.RegionRect = new Rect2(12, 0, new Vector2(488, 36));
 				noteBase.PatchMarginLeft = 0;
 				noteBase.PatchMarginRight = 0;
 			}
 
-			var nPos = Position;
-			nPos.X = pos * (Constants.BASE_2D_RESOLUTION/60) - 12;
-			Position = nPos;
+			var nPos = noteBase.Position;
+			nPos.X = nbPos * (Constants.BASE_2D_RESOLUTION/60) - 12;
+			noteBase.Position = nPos;
 
-			var nSize = Size;
-			nSize.X = size * (Constants.BASE_2D_RESOLUTION/60) + 24;
-			Size = nSize;
+			var nSize = noteBase.Size;
+			nSize.X = nbSize * (Constants.BASE_2D_RESOLUTION/60) + 24;
+			noteBase.Size = nSize;
+			
+			// handle swipe arrow size
+			if (noteData.type == NotePlayType.SwipeCW || noteData.type == NotePlayType.SwipeCCW)
+			{
+				var n = (SwipeArrow) FindChild("SwipeArrow");
+				n.SetPosSize(pos, size);
+			}
 		}
 	}
 }

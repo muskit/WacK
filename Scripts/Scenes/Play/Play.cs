@@ -132,11 +132,11 @@ namespace WacK.Scenes
 						default:
 							continue;
 					}
+					noteDisplay.AddChild(nNote);
 					nNote.Init(note);
 					var nPos = nNote.Position;
 					nPos.Y = msNote.Key * -ScrollPxPerSec;
 					nNote.Position = nPos;
-					noteDisplay.AddChild(nNote);
 				}
 			}
 		}

@@ -2,19 +2,20 @@
 
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_aasqx"]
 [ext_resource type="Texture2D" uid="uid://rrwjokjt4jb8" path="res://_Assets/Textures/Notes/SwipeCW.png" id="2_ttxox"]
+[ext_resource type="PackedScene" uid="uid://jn0eb8txbjro" path="res://Things/TunnelObjects/Notes/SwipeArrow.tscn" id="3_b1dle"]
 [ext_resource type="Shader" uid="uid://dm5rgp78v61ha" path="res://Shaders/SwipeArrow.tres" id="3_de2t7"]
 [ext_resource type="Texture2D" uid="uid://cmaq66vbi80ug" path="res://_Assets/Textures/Notes/SlideArrow_Texture.png" id="4_v0t51"]
 [ext_resource type="Texture2D" uid="uid://kjoqem41xatr" path="res://_Assets/Textures/Notes/SlideArrow_Mask.png" id="5_dafyh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kk13m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_52amd"]
+resource_local_to_scene = true
 shader = ExtResource("3_de2t7")
-shader_parameter/Color = Color(1, 0.235294, 0, 1)
-shader_parameter/scrollMultiplier = 1.0
+shader_parameter/ArrowColor = Color(0, 1, 0, 1)
+shader_parameter/isCwShape = false
+shader_parameter/TileMult = 6.0
+shader_parameter/scrollMultiplier = 2.0
 shader_parameter/arrow = ExtResource("4_v0t51")
 shader_parameter/mask = ExtResource("5_dafyh")
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fa8y1"]
-width = 1
 
 [node name="NoteSwipeCW" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
@@ -30,6 +31,7 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -36.0
+offset_right = 120.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -37,12 +39,8 @@ texture = ExtResource("2_ttxox")
 patch_margin_left = 12
 patch_margin_right = 12
 
-[node name="Control" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_kk13m")
+[node name="SwipeArrow" parent="." instance=ExtResource("3_b1dle")]
+material = SubResource("ShaderMaterial_52amd")
 layout_mode = 0
-offset_left = 200.0
-offset_top = -198.0
-offset_right = 351.0
-offset_bottom = 2.0
-rotation = 1.5708
-texture = SubResource("GradientTexture1D_fa8y1")
+offset_top = -75.0
+offset_bottom = 693.0
