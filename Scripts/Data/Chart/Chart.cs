@@ -131,13 +131,15 @@ namespace WacK.Data.Chart
                             else
                                 // TODO: handle denominator (note that gets the beat)
                                 queuedBPM = int.Parse(chartNote.Item2.value.Split()[0]);
-                            timeSigChgs.Add(
+                            // FIXME: keep last instance encountered on the same time
+                            timeSigChgs.TryAdd(
                                 curTime,
                                 new NoteEvent<(int, int)> (
                                     curTime, mb,
                                     NoteEventType.TimeSignature,
                                     value: (nu, de)
-                                ));
+                                )
+                            );
                             break;
                         // Playable notes
                         case MerType.Touch:
