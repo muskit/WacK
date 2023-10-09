@@ -6,7 +6,7 @@ namespace WacK.Things.TunnelObjects
 	[Tool]
 	public partial class SwipeArrow : Control
 	{
-		public readonly Color COLOR_CW = new("#FF8000");
+		public readonly Color COLOR_CW = new("#FF8000"); // TODO: adjust
 		public readonly Color COLOR_CCW = new("#00FF00");
 
 		private ShaderMaterial shader;
