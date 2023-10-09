@@ -21,7 +21,7 @@ public partial class BGM : AudioStreamPlayer
 	{
 		if (!path.StartsWith("user://"))
 		{
-			GD.Print("Tried to load audio that isn't in user directory.");
+			GD.PrintErr("Tried to load audio that isn't in user directory.");
 			return;
 		}
 
@@ -36,6 +36,7 @@ public partial class BGM : AudioStreamPlayer
 		switch (ext)
 		{
 			case "mp3":
+				GD.Print($"audio is MP3");
 				var mp3 = new AudioStreamMP3()
 				{
 					Data = f.GetBuffer((long)f.GetLength())
@@ -44,15 +45,45 @@ public partial class BGM : AudioStreamPlayer
 				break;
 			case "wav":
 			case "wave":
+				GD.Print("audio is WAV");
+				var buffer = f.GetBuffer((long)f.GetLength());
+
+				/// WAV HEADER PARSING ///
+				// bit format
+				var bf = new byte[]{ buffer[34], buffer[35] };
+				var bitFormat = BitConverter.ToUInt16(bf) switch
+				{
+					8 => AudioStreamWav.FormatEnum.Format8Bits,
+					16 => AudioStreamWav.FormatEnum.Format16Bits,
+					_ => AudioStreamWav.FormatEnum.ImaAdpcm
+				};
+				GD.Print($"Bit format: {bitFormat}");
+
+				// sample rate
+				var sr = new byte[] { buffer[24], buffer[25], buffer[26], buffer[27] };
+				var sampleRate = BitConverter.ToUInt32(sr);
+				GD.Print($"Sample rate: {sampleRate}");
+
+				// stereo or mono
+				var c = new byte[] { buffer[22], buffer[23] };
+				var channels = BitConverter.ToUInt16(c);
+				GD.Print($"Channels: {channels}");
+
 				var wav = new AudioStreamWav()
 				{
-					Data = f.GetBuffer((long)f.GetLength())
+					Data = buffer,
+					Format = bitFormat,
+					MixRate = (int)sampleRate,
+					Stereo = channels <= 1 ? false : true
 				};
 				Stream = wav;
 				break;
 			case "ogg":
 				// TODO: implement
 				GD.PrintErr("External OGGs not supported in Godot 4.1...");
+				break;
+			default:
+				GD.PrintErr("Unknown audio!");
 				break;
 		}
 	}
