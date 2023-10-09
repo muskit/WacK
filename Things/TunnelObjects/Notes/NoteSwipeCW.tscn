@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://wk634bobe32k"]
+[gd_scene load_steps=8 format=3 uid="uid://wk634bobe32k"]
 
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_aasqx"]
 [ext_resource type="Texture2D" uid="uid://rrwjokjt4jb8" path="res://_Assets/Textures/Notes/SwipeCW.png" id="2_ttxox"]
 [ext_resource type="Shader" uid="uid://dm5rgp78v61ha" path="res://Shaders/SwipeArrow.tres" id="3_de2t7"]
 [ext_resource type="Texture2D" uid="uid://cmaq66vbi80ug" path="res://_Assets/Textures/Notes/SlideArrow_Texture.png" id="4_v0t51"]
+[ext_resource type="Texture2D" uid="uid://kjoqem41xatr" path="res://_Assets/Textures/Notes/SlideArrow_Mask.png" id="5_dafyh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kk13m"]
 shader = ExtResource("3_de2t7")
 shader_parameter/Color = Color(1, 0.235294, 0, 1)
 shader_parameter/scrollMultiplier = 1.0
 shader_parameter/arrow = ExtResource("4_v0t51")
+shader_parameter/mask = ExtResource("5_dafyh")
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fa8y1"]
 width = 1

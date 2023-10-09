@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://dm5rgp78v61ha"]
+[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://dm5rgp78v61ha"]
 
 [ext_resource type="Texture2D" uid="uid://cmaq66vbi80ug" path="res://_Assets/Textures/Notes/SlideArrow_Texture.png" id="1_cj2ec"]
 [ext_resource type="Texture2D" uid="uid://kjoqem41xatr" path="res://_Assets/Textures/Notes/SlideArrow_Mask.png" id="2_p52jd"]
@@ -27,6 +27,7 @@ operator = 2
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_70igk"]
 expanded_output_ports = [0]
+source = 5
 texture = ExtResource("2_p52jd")
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_d62au"]
@@ -70,6 +71,11 @@ default_value = Color(0, 1, 0, 1)
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_l1lmq"]
 
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_anrqj"]
+parameter_name = "mask"
+color_default = 2
+texture_filter = 4
+
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_13pou"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
 op_type = 2
@@ -87,7 +93,7 @@ render_mode blend_mix;
 uniform vec4 Color : source_color = vec4(0.000000, 1.000000, 0.000000, 1.000000);
 uniform float scrollMultiplier = 1;
 uniform sampler2D arrow : filter_linear, repeat_enable;
-uniform sampler2D tex_frg_16;
+uniform sampler2D mask : hint_default_transparent, filter_linear_mipmap;
 
 
 
@@ -143,8 +149,9 @@ void fragment() {
 	vec4 n_out10p0 = n_out11p0 + n_out29p0;
 
 
+	vec4 n_out16p0;
 // Texture2D:16
-	vec4 n_out16p0 = texture(tex_frg_16, UV);
+	n_out16p0 = texture(mask, UV);
 	float n_out16p1 = n_out16p0.r;
 	float n_out16p2 = n_out16p0.g;
 	float n_out16p3 = n_out16p0.b;
@@ -178,7 +185,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-853.68, 15.6841)
+graph_offset = Vector2(-894.996, 674.464)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1500, 460)
@@ -218,4 +225,6 @@ nodes/fragment/28/node = SubResource("VisualShaderNodeFloatParameter_k4kjf")
 nodes/fragment/28/position = Vector2(-1520, 580)
 nodes/fragment/29/node = SubResource("VisualShaderNodeColorParameter_u0ner")
 nodes/fragment/29/position = Vector2(-380, -260)
-nodes/fragment/connections = PackedInt32Array(7, 0, 8, 0, 11, 0, 10, 0, 10, 0, 7, 0, 13, 0, 11, 0, 15, 0, 7, 1, 16, 1, 17, 1, 16, 3, 15, 1, 16, 2, 3, 2, 8, 0, 0, 0, 20, 0, 22, 0, 22, 0, 14, 0, 3, 0, 8, 1, 17, 0, 0, 1, 14, 1, 11, 1, 14, 1, 15, 0, 14, 2, 3, 0, 26, 0, 14, 2, 24, 0, 22, 2, 23, 0, 27, 0, 27, 0, 24, 1, 28, 0, 27, 1, 29, 0, 13, 0, 29, 0, 10, 1, 14, 3, 17, 0)
+nodes/fragment/30/node = SubResource("VisualShaderNodeTexture2DParameter_anrqj")
+nodes/fragment/30/position = Vector2(-520, 480)
+nodes/fragment/connections = PackedInt32Array(7, 0, 8, 0, 11, 0, 10, 0, 10, 0, 7, 0, 13, 0, 11, 0, 15, 0, 7, 1, 16, 1, 17, 1, 16, 3, 15, 1, 16, 2, 3, 2, 8, 0, 0, 0, 20, 0, 22, 0, 22, 0, 14, 0, 3, 0, 8, 1, 17, 0, 0, 1, 14, 1, 11, 1, 14, 1, 15, 0, 14, 2, 3, 0, 26, 0, 14, 2, 24, 0, 22, 2, 23, 0, 27, 0, 27, 0, 24, 1, 28, 0, 27, 1, 29, 0, 13, 0, 29, 0, 10, 1, 14, 3, 17, 0, 30, 0, 16, 2)
