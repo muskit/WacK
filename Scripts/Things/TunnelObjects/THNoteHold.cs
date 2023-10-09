@@ -10,12 +10,12 @@ namespace WacK.Things.TunnelObjects
 {
 	public partial class THNoteHold : THNotePlay
 	{
-		public NoteHold holdNoteData;
+		public NoteHold holdData;
 		private Node2D longThing;
 
         public void InitHold(NoteHold noteData, Control holdScroll)
 		{
-			holdNoteData = noteData;
+			holdData = noteData;
 			BuildLongThing(holdScroll);
 		}
 
@@ -24,23 +24,21 @@ namespace WacK.Things.TunnelObjects
         {
             longThing = new Node2D();
             holdScroll.AddChild(longThing);
-            longThing.Position = new Vector2(0, (float)-holdNoteData.time * Play.ScrollPxPerSec);
+            longThing.Position = new Vector2(0, (float)-holdData.time * Play.ScrollPxPerSec);
 
             // only draw visible hold-mids
-            var drawableMids = holdNoteData.points.Values.Where(e => e.type == NotePlayType.HoldMid).ToList();
+            var drawableMids = holdData.points.Values.Where(e => e.type == NotePlayType.HoldMid || e.type == NotePlayType.HoldEnd).ToList();
             if (drawableMids.Count > 0)
             {
-                var lastMid = holdNoteData.points.Values[^1];
+                var lastMid = holdData.points.Values[^1];
                 if (drawableMids[^1] != lastMid) drawableMids.Add(lastMid);
             }
-            else
-            {
-                drawableMids = holdNoteData.points.Values.ToList();
-            }
+            else // would most likely happen if HoldEnd is missing
+                drawableMids = holdData.points.Values.ToList();
 
             if (drawableMids.Count() > 0)
             {
-                NotePlay lastHold = holdNoteData;
+                NotePlay lastHold = holdData;
                 float segmentPos = 0;
 				foreach (var curNote in drawableMids)
 				{
