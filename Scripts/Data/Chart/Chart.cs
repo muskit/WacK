@@ -163,7 +163,7 @@ namespace WacK.Data.Chart
                             curNote = new NotePlay(
                                 curTime, mb,
                                 chartNote.Item2.position, chartNote.Item2.size,
-                                type: NotePlayType.HoldMid,
+                                type: chartNote.Item2.value == "1" ? NotePlayType.HoldMid : NotePlayType.HoldMidInvis,
                                 holdIndex: chartNote.Item2.holdIdx,
                                 holdNext: chartNote.Item2.holdNextIdx
                             );
@@ -244,14 +244,14 @@ namespace WacK.Data.Chart
                         {
 							curHoldNote[np.holdIdx].points[curTime] = np;
 						}
-                        else
-                        {
+                        // else
+                        // {
                             if (!playNotes.ContainsKey(curTime))
                             {
                                 playNotes[curTime] = new List<NotePlay>();
                             }
                             playNotes[curTime].Add(np);
-                        }
+                        // }
                     }
 
 					// NoteEvent<float> -- tempo changes

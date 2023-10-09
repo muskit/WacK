@@ -7,6 +7,7 @@ namespace WacK.Data.Chart
 		Touch,
 		HoldStart,
 		HoldMid,
+		HoldMidInvis,
 		HoldEnd,
 		Chain,
 		SnapIn,

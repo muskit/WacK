@@ -114,8 +114,8 @@ namespace WacK.Data.Mer
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), holdIndex: int.Parse(tokens[4]), holdNext: int.Parse(tokens[8]), type: MerType.HoldStart, bonus: true)));
                                 ++playableNoteCount;
                                 break;
-                            case "10": // hold middle
-                                notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), holdIndex: int.Parse(tokens[4]), holdNext: int.Parse(tokens[8]), type: MerType.HoldMid)));
+                            case "10": // hold middle; value = should draw?
+                                notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), value: tokens[7],holdIndex: int.Parse(tokens[4]), holdNext: int.Parse(tokens[8]), type: MerType.HoldMid)));
                                 break;
                             case "11": // hold end
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), holdIndex: int.Parse(tokens[4]), type: MerType.HoldEnd)));

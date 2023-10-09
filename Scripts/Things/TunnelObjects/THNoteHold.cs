@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using Godot;
@@ -25,11 +26,23 @@ namespace WacK.Things.TunnelObjects
             holdScroll.AddChild(longThing);
             longThing.Position = new Vector2(0, (float)-holdNoteData.time * Play.ScrollPxPerSec);
 
-            if (holdNoteData.points.Count > 0)
+            // only draw visible hold-mids
+            var drawableMids = holdNoteData.points.Values.Where(e => e.type == NotePlayType.HoldMid).ToList();
+            if (drawableMids.Count > 0)
+            {
+                var lastMid = holdNoteData.points.Values[^1];
+                if (drawableMids[^1] != lastMid) drawableMids.Add(lastMid);
+            }
+            else
+            {
+                drawableMids = holdNoteData.points.Values.ToList();
+            }
+
+            if (drawableMids.Count() > 0)
             {
                 NotePlay lastHold = holdNoteData;
                 float segmentPos = 0;
-				foreach (var (_, curNote) in holdNoteData.points)
+				foreach (var curNote in drawableMids)
 				{
                     var curLength = Play.ScrollPxPerSec * (float)(curNote.time - lastHold.time);
                     var segment = CreateSegment(lastHold, curNote);
@@ -42,7 +55,7 @@ namespace WacK.Things.TunnelObjects
             }
             else
             {
-				GD.PrintErr("Tried to create a long note with no segments!");
+				GD.PrintErr("Tried to create a Hold note's long with no drawable segments!");
             }
         }
 
