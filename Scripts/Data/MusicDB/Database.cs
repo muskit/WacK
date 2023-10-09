@@ -1,15 +1,25 @@
+using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Text.RegularExpressions;
 using Godot;
+using WacK.Configuration;
 
 namespace WacK.MusicDB
 {
 	public class Database
 	{
+		// TODO: relocate?
+		public static readonly string[] DifficultyStr = {
+			((DifficultyLevel)0).ToString(),
+			((DifficultyLevel)1).ToString(),
+			((DifficultyLevel)2).ToString(),
+			((DifficultyLevel)3).ToString(),
+		};
 		public static readonly string SONGS_DIR = "user://songs";
-		public List<Song> songs;
-
 		public static Database instance;
+
+		public List<Song> songs;
 
 		public static void Init()
 		{
@@ -20,11 +30,11 @@ namespace WacK.MusicDB
 
 		public Database()
 		{
-			InitSongsDir();
-			BuildDatabase(SONGS_DIR);
+			TryCreateSongsDir();
+			AddSongDirs(SONGS_DIR);
 		}
 		
-		private void InitSongsDir()
+		private void TryCreateSongsDir()
 		{
 			GD.Print($"User directory: {OS.GetUserDataDir()}");
 			var songDir = DirAccess.Open(SONGS_DIR);
@@ -57,11 +67,61 @@ namespace WacK.MusicDB
 			}
 		}
 		
-		private void BuildDatabase(string path)
+		/// <summary>
+		/// Recursively find and add song folders.
+		/// </summary>
+		/// <param name="path"></param>
+		private void AddSongDirs(string path)
 		{
-			var d = DirAccess.Open(path);
-			if (d == null) return;
+			var dir = DirAccess.Open(path);
+			if (dir == null) return;
 
+			// recursively check subdirectories
+			foreach (var d in dir.GetDirectories())
+			{
+				AddSongDirs($"{path}/{d}");
+			}
+
+			// don't do anything if there isn't a song.ini
+			if (!dir.FileExists("song.ini")) return;
+
+			/// AT THIS POINT, WE'RE IN A SONG FOLDER ///
+			GD.Print($"{path} -------------------------");
+			
+			var songIni = new ConfigFile();
+			songIni.Load($"{path}/song.ini");
+			try
+			{
+				var merRegex = @"\d+.*\.mer$";
+				// song info
+				var name = songIni.GetValue("Song", "name").As<string>();
+				var artist = songIni.GetValue("Song", "artist").As<string>();
+				var category = songIni.GetValue("Song", "category").As<string>();
+				var copyright = songIni.GetValue("Song", "copyright").As<string>();
+				GD.Print($"Song(name={name},artist={artist},category={category},copyright={copyright})");
+				
+				// per-difficulty info
+				foreach (var f in dir.GetFiles())
+				{
+					var m = Regex.Match(f, merRegex, RegexOptions.IgnoreCase);
+					if (m.Captures.Count > 0)
+					{
+						var substr = m.Captures[0].ToString();
+						var num = int.Parse(new string(substr.SkipWhile(c => !Char.IsDigit(c)).TakeWhile(Char.IsDigit).ToArray()));
+
+						GD.Print($"{f}: is diff {DifficultyStr[num]}");
+					}
+					else
+					{
+						GD.Print($"{f} is not a chart");
+					}
+				}
+			}
+			catch
+			{
+				GD.Print($"Error parsing {path}/song.ini, skipping!");
+				return;
+			}
 		}
 
 		public void SaveCache()

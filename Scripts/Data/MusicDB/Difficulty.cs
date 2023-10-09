@@ -18,9 +18,14 @@ namespace WacK.MusicDB
 		float clearRatio;
 
 		/// <summary>
-		/// Path to audio file for this difficulty.
+		/// Name of audio file for this level.
 		/// </summary>
 		string audioFile;
+
+		/// <summary>
+		/// Name of chart file for this level.
+		/// </summary>
+		string chartFile;
 
 		string designer;
 
