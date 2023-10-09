@@ -7,12 +7,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kk13m"]
 shader = ExtResource("3_de2t7")
-shader_parameter/Color = Color(1, 0.501961, 0, 1)
+shader_parameter/Color = Color(1, 0.235294, 0, 1)
 shader_parameter/scrollMultiplier = 1.0
 shader_parameter/arrow = ExtResource("4_v0t51")
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fa8y1"]
-width = 128
+width = 1
 
 [node name="NoteSwipeCW" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
@@ -38,9 +38,9 @@ patch_margin_right = 12
 [node name="Control" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_kk13m")
 layout_mode = 0
-offset_left = 192.0
-offset_top = -174.0
-offset_right = 320.0
-offset_bottom = 18.0
+offset_left = 200.0
+offset_top = -198.0
+offset_right = 351.0
+offset_bottom = 2.0
 rotation = 1.5708
 texture = SubResource("GradientTexture1D_fa8y1")
