@@ -61,10 +61,7 @@ namespace WacK.Data.Mer
                                 ++playableNoteCount;
                                 break;
                             case "2": // touch w/ bonus
-                                notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), type: MerType.Touch, bonus: true)));
-                                ++playableNoteCount;
-                                break;
-                            case "20": // touch w/ bonus (+ "big effect")
+                            case "20": // TODO: big effect
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), type: MerType.Touch, bonus: true)));
                                 ++playableNoteCount;
                                 break;
@@ -97,6 +94,7 @@ namespace WacK.Data.Mer
                                 ++playableNoteCount;
                                 break;
                             case "8": // swipe CCW w/ bonus
+                            case "24": // TODO: big effect
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), type: MerType.SwipeCCW, bonus: true)));
                                 ++playableNoteCount;
                                 break;
@@ -105,6 +103,7 @@ namespace WacK.Data.Mer
                                 ++playableNoteCount;
                                 break;
                             case "6": // swipe CW w/ bonus
+                            case "23": // TODO: big effect
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), type: MerType.SwipeCW, bonus: true)));
                                 ++playableNoteCount;
                                 break;
@@ -127,7 +126,10 @@ namespace WacK.Data.Mer
                             case "13": // BG rem
                                 notes[currentMeasure].Add((currentBeat, new MerNote(int.Parse(tokens[5]), int.Parse(tokens[6]), value: tokens[8], type: MerType.BGRem)));
                                 break;
-                            
+                            case "15": // TODO: "SAME_TIME" (BG instant anim?)
+                                break;
+                            case "14": // TODO: end of chart
+                                break;
                         }
                         break;
                     case "2": // tempo
