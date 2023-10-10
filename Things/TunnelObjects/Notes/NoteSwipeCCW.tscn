@@ -10,8 +10,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6l1er"]
 resource_local_to_scene = true
 shader = ExtResource("3_k16x0")
-shader_parameter/ArrowColor = Color(0, 1, 0, 1)
-shader_parameter/isCwShape = false
+shader_parameter/isCw = false
 shader_parameter/TileMult = 6.0
 shader_parameter/scrollMultiplier = 2.0
 shader_parameter/arrow = ExtResource("4_rv322")
