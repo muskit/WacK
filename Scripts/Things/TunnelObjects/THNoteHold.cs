@@ -65,52 +65,29 @@ namespace WacK.Things.TunnelObjects
             var length = Play.ScrollPxPerSec * (float)(destination.time - origin.time);
             var verts = new Vector2[4];
 
-            int originPos;
-            int originSize;
-            int destPos;
-            int destSize;
-            if (3 <= origin.size && origin.size <= 59)
-            {
-                originPos = ((int)origin.pos + 1)%60;
-                originSize = (int)origin.size - 2;
-            }
-            else
-            {
-                originPos = (int)origin.pos;
-                originSize = (int)origin.size;
-            }
+            int correctedDestPos = Util.NearestMinute((int) origin.pos, (int) destination.pos);
+            var (originPosPx, originSizePx) = Util.PixelizeNote((int)origin.pos, (int)origin.size);
+            var (destPosPx, destSizePx) = Util.PixelizeNote(correctedDestPos, (int)destination.size);
 
-            if (3 <= destination.size && destination.size <= 59)
-            {
-                destPos = ((int)destination.pos + 1)%60;
-                destSize = (int)destination.size - 2;
-            }
-            else
-            {
-                destPos = (int)destination.pos;
-                destSize = (int)destination.size;
-            }
-
-            destPos = (int)Util.NearestMinute(originPos, destPos);
-            verts[0] = new Vector2(originPos * minuteSize, 0);
-            verts[1] = new Vector2(verts[0].X + originSize * minuteSize, 0);
-            verts[2] = new Vector2(minuteSize * (destPos + destSize), -length);
-            verts[3] = new Vector2(minuteSize * destPos, -length);
+            verts[0] = new Vector2(originPosPx, 0);
+            verts[1] = new Vector2(verts[0].X + originSizePx, 0);
+            verts[2] = new Vector2(destPosPx + destSizePx, -length);
+            verts[3] = new Vector2(destPosPx, -length);
             var segment = new Polygon2D() { Polygon = verts, Antialiased = true };
 
             // draw overflow
-            var originFinalPos = originPos + originSize;
-            var destinationFinalPos = destPos + destSize;
+            var originFinalPos = origin.pos + origin.size;
+            var destinationFinalPos = correctedDestPos + destination.size;
             if (originFinalPos > 60 || destinationFinalPos > 60)
             {
                 var subSegment = new Polygon2D() { Polygon = verts, Antialiased = true };
-                subSegment.Translate(new Vector2(-60 * minuteSize, 0));
+                subSegment.Translate(new Vector2(-Constants.BASE_2D_RESOLUTION, 0));
                 segment.AddChild(subSegment);
             }
             if (originFinalPos < 60 || destinationFinalPos < 60)
             {
                 var subSegment = new Polygon2D() { Polygon = verts, Antialiased = true };
-                subSegment.Translate(new Vector2(60 * minuteSize, 0));
+                subSegment.Translate(new Vector2(Constants.BASE_2D_RESOLUTION, 0));
                 segment.AddChild(subSegment);
             }
             segment.Modulate = new Color("#FFFFFFD0");

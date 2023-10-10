@@ -56,7 +56,7 @@ namespace WacK
         }
 
         // Return an equivalent minute that's closest to the origin.
-        public static float NearestMinute(int origin, int destination)
+        public static int NearestMinute(int origin, int destination)
         {
             int result = destination % 60;
 
@@ -71,6 +71,37 @@ namespace WacK
                 result = minus;
 
             return result;
+        }
+
+        public static (float, float) PixelizeNote(int pos, int size, int endCapPx = 12)
+        {
+            float pxPerMinute = Constants.BASE_2D_RESOLUTION / 60;
+
+			float posPx = 0;
+			float sizePx = 0;
+
+            if (size <= 59)
+			{
+				if (size >= 3)
+				{
+					posPx = (pos + 1) * pxPerMinute;
+					sizePx = (size - 2) * pxPerMinute;
+				}
+				else // 2 or smaller
+				{ 
+					posPx = pos * pxPerMinute;
+					sizePx = size * pxPerMinute;
+				}
+				// end-caps
+				posPx -= endCapPx;
+				sizePx += 2*endCapPx;
+			}
+			else // size is 60 or greater
+			{
+				size = 60;
+				sizePx = Constants.BASE_2D_RESOLUTION;
+			}
+            return (posPx, sizePx);
         }
 
         public static float ScreenPixelToRad(Vector2 pos)
