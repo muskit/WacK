@@ -16,8 +16,8 @@ namespace WacK
     {
         public static float Seg2Rad(float seg)
         {
-			return Mathf.DegToRad(6f * seg);
-		}
+            return Mathf.DegToRad(6f * seg);
+        }
         public static float Rad2Seg(float angle)
         {
             return Mathf.RadToDeg(angle / 6f);
@@ -77,30 +77,30 @@ namespace WacK
         {
             float pxPerMinute = Constants.BASE_2D_RESOLUTION / 60;
 
-			float posPx = 0;
-			float sizePx = 0;
+            float posPx;
+            float sizePx;
 
             if (size <= 59)
-			{
-				if (size >= 3)
-				{
-					posPx = (pos + 1) * pxPerMinute;
-					sizePx = (size - 2) * pxPerMinute;
-				}
-				else // 2 or smaller
-				{ 
-					posPx = pos * pxPerMinute;
-					sizePx = size * pxPerMinute;
-				}
-				// end-caps
-				posPx -= endCapPx;
-				sizePx += 2*endCapPx;
-			}
-			else // size is 60 or greater
-			{
-				size = 60;
-				sizePx = Constants.BASE_2D_RESOLUTION;
-			}
+            {
+                if (size >= 3)
+                {
+                    posPx = (pos + 1) * pxPerMinute;
+                    sizePx = (size - 2) * pxPerMinute;
+                }
+                else // 2 or smaller
+                { 
+                    posPx = pos * pxPerMinute;
+                    sizePx = size * pxPerMinute;
+                }
+                // end-caps
+                posPx -= endCapPx;
+                sizePx += 2*endCapPx;
+            }
+            else // size is 60 or greater
+            {
+                posPx = pxPerMinute * pos;
+                sizePx = Constants.BASE_2D_RESOLUTION;
+            }
             return (posPx, sizePx);
         }
 

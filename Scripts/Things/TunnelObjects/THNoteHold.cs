@@ -60,14 +60,13 @@ namespace WacK.Things.TunnelObjects
 
         private Polygon2D CreateSegment(NotePlay origin, NotePlay destination)
         {
-			float minuteSize = Constants.BASE_2D_RESOLUTION / 60;
-
             var length = Play.ScrollPxPerSec * (float)(destination.time - origin.time);
             var verts = new Vector2[4];
 
-            int correctedDestPos = Util.NearestMinute((int) origin.pos, (int) destination.pos);
+            int destPosNearest = Util.NearestMinute((int) origin.pos, (int) destination.pos);
+
             var (originPosPx, originSizePx) = Util.PixelizeNote((int)origin.pos, (int)origin.size);
-            var (destPosPx, destSizePx) = Util.PixelizeNote(correctedDestPos, (int)destination.size);
+            var (destPosPx, destSizePx) = Util.PixelizeNote(destPosNearest, (int)destination.size);
 
             verts[0] = new Vector2(originPosPx, 0);
             verts[1] = new Vector2(verts[0].X + originSizePx, 0);
@@ -77,17 +76,27 @@ namespace WacK.Things.TunnelObjects
 
             // draw overflow
             var originFinalPos = origin.pos + origin.size;
-            var destinationFinalPos = correctedDestPos + destination.size;
+            var destinationFinalPos = destPosNearest + destination.size;
             if (originFinalPos > 60 || destinationFinalPos > 60)
             {
-                var subSegment = new Polygon2D() { Polygon = verts, Antialiased = true };
-                subSegment.Translate(new Vector2(-Constants.BASE_2D_RESOLUTION, 0));
+                GD.Print("overflowed to the right!");
+                var subSegment = new Polygon2D
+                {
+                    Polygon = verts,
+                    Antialiased = true,
+                    Position = new Vector2(-Constants.BASE_2D_RESOLUTION, 0)
+                };
                 segment.AddChild(subSegment);
             }
-            if (originFinalPos < 60 || destinationFinalPos < 60)
+            if (originFinalPos < 0 || destinationFinalPos < 0)
             {
-                var subSegment = new Polygon2D() { Polygon = verts, Antialiased = true };
-                subSegment.Translate(new Vector2(Constants.BASE_2D_RESOLUTION, 0));
+                GD.Print("overflowed to the left!");
+                var subSegment = new Polygon2D
+                {
+                    Polygon = verts,
+                    Antialiased = true,
+                    Position = new Vector2(Constants.BASE_2D_RESOLUTION, 0)
+                };
                 segment.AddChild(subSegment);
             }
             segment.Modulate = new Color("#FFFFFFD0");
