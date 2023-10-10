@@ -9,10 +9,8 @@ namespace WacK.Things.TunnelObjects
 		private NinePatchRect noteBase;
 		public NotePlay noteData;
 		
-		public async void Init(NotePlay noteData)
+		public void Init(NotePlay noteData)
 		{
-			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-			
 			this.noteData = noteData;
 			SetPosSize((int)noteData.pos, (int)noteData.size);
 
@@ -26,30 +24,44 @@ namespace WacK.Things.TunnelObjects
 		
 		public void SetPosSize(int pos, int size)
 		{
-			var nbPos = pos;
-			var nbSize = size;
-			// TODO: end caps peak into bounds
-			if (3 <= size && size <= 59)
+			float pxPerMinute = Constants.BASE_2D_RESOLUTION / 60;
+
+			float posPx = 0;
+			float sizePx = 0;
+
+			if (size <= 59)
 			{
-				nbPos += 1;
-				nbSize -= 2;
+				if (size >= 3)
+				{
+					posPx = (pos + 1) * pxPerMinute;
+					sizePx = (size - 2) * pxPerMinute;
+				}
+				else // 2 or smaller
+				{ 
+					posPx = pos * pxPerMinute;
+					sizePx = size * pxPerMinute;
+				}
+				// end-caps
+				posPx -= 12;
+				sizePx += 24;
 			}
-			else if (size >= 60)
+			else // size is 60 or greater
 			{
 				size = 60;
-				nbSize = 60;
+				sizePx = Constants.BASE_2D_RESOLUTION;
+				// remove end-caps
 				noteBase.RegionRect = new Rect2(12, 0, new Vector2(488, 36));
 				noteBase.PatchMarginLeft = 0;
 				noteBase.PatchMarginRight = 0;
 			}
 
 			var nPos = noteBase.Position;
-			nPos.X = nbPos * (Constants.BASE_2D_RESOLUTION/60) - 12;
-			noteBase.Position = nPos;
+			nPos.X = posPx;
+			noteBase.SetDeferred("position", nPos);
 
 			var nSize = noteBase.Size;
-			nSize.X = nbSize * (Constants.BASE_2D_RESOLUTION/60) + 24;
-			noteBase.Size = nSize;
+			nSize.X = sizePx;
+			noteBase.SetDeferred("size", nSize);
 			
 			// handle swipe arrow size
 			if (noteData.type == NotePlayType.SwipeCW || noteData.type == NotePlayType.SwipeCCW)
