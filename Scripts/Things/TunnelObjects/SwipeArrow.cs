@@ -3,7 +3,6 @@ using System;
 
 namespace WacK.Things.TunnelObjects
 {
-	[Tool]
 	public partial class SwipeArrow : Control
 	{
 
