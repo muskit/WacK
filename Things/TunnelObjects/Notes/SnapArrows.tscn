@@ -1,0 +1,171 @@
+[gd_scene load_steps=7 format=3 uid="uid://digltkd2gj66n"]
+
+[ext_resource type="Script" path="res://Things/TunnelObjects/Notes/SnapArrows.cs" id="1_dqasq"]
+[ext_resource type="Shader" uid="uid://b1yf18ux4edj2" path="res://Shaders/SnapArrow.tres" id="1_dxmi1"]
+[ext_resource type="Texture2D" uid="uid://cedfe12weahhb" path="res://_Assets/Textures/Notes/SnapArrow.png" id="2_dipvr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2kww"]
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = true
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="Gradient" id="Gradient_46guk"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oc0to"]
+gradient = SubResource("Gradient_46guk")
+width = 1
+
+[node name="SnapArrows" type="HBoxContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -1080.0
+offset_right = 1920.0
+offset_bottom = -940.0
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("1_dqasq")
+theme_override_constants/separation = 0
+
+[node name="Arrow TextureRect1" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect3" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect4" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect5" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect6" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect7" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect8" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect9" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect10" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect11" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect12" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect13" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect14" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect15" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect16" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect17" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect18" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect19" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4
+
+[node name="Arrow TextureRect20" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a2kww")
+custom_minimum_size = Vector2(96, 140)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_oc0to")
+expand_mode = 4

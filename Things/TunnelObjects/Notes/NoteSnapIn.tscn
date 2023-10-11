@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4osxd8lxmq8h"]
+[gd_scene load_steps=4 format=3 uid="uid://b4osxd8lxmq8h"]
 
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_lmk57"]
 [ext_resource type="Texture2D" uid="uid://cr2a3fc5nu7js" path="res://_Assets/Textures/Notes/SnapIn.png" id="2_ipqj7"]
+[ext_resource type="PackedScene" uid="uid://digltkd2gj66n" path="res://Things/TunnelObjects/Notes/SnapArrows.tscn" id="3_tg2n4"]
 
 [node name="NoteSnapIn" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
@@ -17,9 +18,19 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -36.0
+offset_right = -144.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_ipqj7")
 patch_margin_left = 12
 patch_margin_right = 12
+
+[node name="HBoxContainer" parent="." instance=ExtResource("3_tg2n4")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = -205.0
+offset_bottom = -65.0
+grow_vertical = 1
