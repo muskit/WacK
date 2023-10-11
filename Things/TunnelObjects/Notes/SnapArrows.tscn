@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://digltkd2gj66n"]
+[gd_scene load_steps=26 format=3 uid="uid://digltkd2gj66n"]
 
-[ext_resource type="Script" path="res://Things/TunnelObjects/Notes/SnapArrows.cs" id="1_dqasq"]
+[ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/SnapArrows.cs" id="1_dqasq"]
 [ext_resource type="Shader" uid="uid://b1yf18ux4edj2" path="res://Shaders/SnapArrow.tres" id="1_dxmi1"]
 [ext_resource type="Texture2D" uid="uid://cedfe12weahhb" path="res://_Assets/Textures/Notes/SnapArrow.png" id="2_dipvr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2kww"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_273qb"]
+resource_local_to_scene = true
 shader = ExtResource("1_dxmi1")
-shader_parameter/isIn = true
+shader_parameter/isIn = false
 shader_parameter/arrow = ExtResource("2_dipvr")
 
 [sub_resource type="Gradient" id="Gradient_46guk"]
@@ -17,6 +18,120 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_46guk")
 width = 1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ee2l"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7jji"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14tmo"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sema3"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfe7p"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1e0l"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4npm"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atogq"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0gmc4"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5ssm"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h3bnn"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt4h5"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wokwc"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lmnb"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3hru"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b75kp"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjd55"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fsfxn"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hjys"]
+resource_local_to_scene = true
+shader = ExtResource("1_dxmi1")
+shader_parameter/isIn = false
+shader_parameter/arrow = ExtResource("2_dipvr")
+
 [node name="SnapArrows" type="HBoxContainer"]
 anchors_preset = 2
 anchor_top = 1.0
@@ -25,147 +140,146 @@ offset_top = -1080.0
 offset_right = 1920.0
 offset_bottom = -940.0
 grow_vertical = 0
-theme_override_constants/separation = 0
+theme_override_constants/separation = 24
 alignment = 1
 script = ExtResource("1_dqasq")
-theme_override_constants/separation = 0
 
 [node name="Arrow TextureRect1" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_273qb")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect2" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_3ee2l")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect3" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_l7jji")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect4" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_14tmo")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect5" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_sema3")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect6" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_lfe7p")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect7" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_s1e0l")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect8" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_y4npm")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect9" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_atogq")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect10" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_0gmc4")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect11" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_p5ssm")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect12" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_h3bnn")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect13" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_pt4h5")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect14" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_wokwc")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect15" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_3lmnb")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect16" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_y3hru")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect17" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_b75kp")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect18" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_cjd55")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect19" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_fsfxn")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4
 
 [node name="Arrow TextureRect20" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_a2kww")
-custom_minimum_size = Vector2(96, 140)
+material = SubResource("ShaderMaterial_7hjys")
+custom_minimum_size = Vector2(72, 140)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_oc0to")
 expand_mode = 4

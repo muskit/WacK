@@ -19,7 +19,8 @@ namespace WacK.Things.TunnelObjects
 			if (noteData.type == NotePlayType.SwipeCW)
 			{
 				var n = (SwipeArrow) FindChild("SwipeArrow");
-				n.SetCW(noteData.type == NotePlayType.SwipeCW);
+				// n.SetCW(noteData.type == NotePlayType.SwipeCW);
+				n.CallDeferred("SetCW", noteData.type == NotePlayType.SwipeCW);
 			}
 		}
 		
@@ -43,11 +44,20 @@ namespace WacK.Things.TunnelObjects
 			nSize.X = sizePx;
 			noteBase.SetDeferred("size", nSize);
 			
-			// handle swipe arrow size
+			// handle swipe arrow pos & size
 			if (noteData.type == NotePlayType.SwipeCW || noteData.type == NotePlayType.SwipeCCW)
 			{
 				var n = (SwipeArrow) FindChild("SwipeArrow");
-				n.SetPosSize(pos, size);
+				// n.SetPosSize(pos, size);
+				n.CallDeferred("SetPosSize", pos, size);
+			}
+
+			// handle snap arrow pos & size
+			if (noteData.type == NotePlayType.SnapIn || noteData.type == NotePlayType.SnapOut)
+			{
+				var n = (SnapArrows)FindChild("SnapArrows");
+				// n.SetPosSize(pos, size);
+				n.CallDeferred("Init", pos, size, noteData.type == NotePlayType.SnapIn);
 			}
 		}
 	}

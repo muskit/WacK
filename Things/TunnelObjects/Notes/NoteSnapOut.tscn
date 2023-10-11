@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqw7av6ummhib"]
+[gd_scene load_steps=4 format=3 uid="uid://dqw7av6ummhib"]
 
 [ext_resource type="Script" path="res://Scripts/Things/TunnelObjects/THNotePlay.cs" id="1_mhn02"]
 [ext_resource type="Texture2D" uid="uid://cdui66l8fg6rg" path="res://_Assets/Textures/Notes/SnapOut.png" id="2_6llgl"]
+[ext_resource type="PackedScene" uid="uid://digltkd2gj66n" path="res://Things/TunnelObjects/Notes/SnapArrows.tscn" id="3_khdro"]
 
 [node name="NoteSnapOut" type="Control" node_paths=PackedStringArray("noteBase")]
 layout_mode = 3
@@ -23,3 +24,15 @@ grow_vertical = 2
 texture = ExtResource("2_6llgl")
 patch_margin_left = 12
 patch_margin_right = 12
+
+[node name="SnapArrows" parent="." instance=ExtResource("3_khdro")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -20.0
+offset_top = -176.0
+offset_right = 52.0
+offset_bottom = -36.0
+grow_vertical = 1
+rotation = -0.000788897
