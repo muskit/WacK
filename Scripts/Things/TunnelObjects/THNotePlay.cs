@@ -14,14 +14,6 @@ namespace WacK.Things.TunnelObjects
 		{
 			this.noteData = noteData;
 			SetPosSize((int)noteData.pos, (int)noteData.size);
-
-			// handle swipe arrow color
-			if (noteData.type == NotePlayType.SwipeCW)
-			{
-				var n = (SwipeArrow) FindChild("SwipeArrow");
-				// n.SetCW(noteData.type == NotePlayType.SwipeCW);
-				n.CallDeferred("SetCW", noteData.type == NotePlayType.SwipeCW);
-			}
 		}
 		
 		public void SetPosSize(int pos, int size)
@@ -44,19 +36,17 @@ namespace WacK.Things.TunnelObjects
 			nSize.X = sizePx;
 			noteBase.SetDeferred("size", nSize);
 			
-			// handle swipe arrow pos & size
+			// handle swipe arrow
 			if (noteData.type == NotePlayType.SwipeCW || noteData.type == NotePlayType.SwipeCCW)
 			{
 				var n = (SwipeArrow) FindChild("SwipeArrow");
-				// n.SetPosSize(pos, size);
-				n.CallDeferred("SetPosSize", pos, size);
+				n.CallDeferred("Init", pos, size, noteData.type == NotePlayType.SwipeCW);
 			}
 
-			// handle snap arrow pos & size
+			// handle snap arrow
 			if (noteData.type == NotePlayType.SnapIn || noteData.type == NotePlayType.SnapOut)
 			{
 				var n = (SnapArrows)FindChild("SnapArrows");
-				// n.SetPosSize(pos, size);
 				n.CallDeferred("Init", pos, size, noteData.type == NotePlayType.SnapIn);
 			}
 		}

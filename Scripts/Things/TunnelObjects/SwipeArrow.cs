@@ -12,13 +12,8 @@ namespace WacK.Things.TunnelObjects
         {
             shader = (ShaderMaterial) Material;
         }
-		
-		public void SetCW(bool isCW)
-		{
-			shader.SetShaderParameter("isCw", isCW);
-		}
 
-        public void SetPosSize(int pos, int size)
+        public void Init(int pos, int size, bool isCW)
 		{
 			var p = Position;
 			var s = Size;
@@ -39,6 +34,7 @@ namespace WacK.Things.TunnelObjects
 			Position = p;
 			Size = s;
 			shader.SetShaderParameter("TileMult", s.Y / 64);
+			shader.SetShaderParameter("isCw", isCW);
 		}
 	}
 }
