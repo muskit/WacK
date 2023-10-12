@@ -69,7 +69,7 @@ namespace WacK.Scenes
 		private int eventNextIdx = 0;
 
 		// base scroll speed, which we can apply multipliers on
-		public static readonly float BASE_PIXELS_PER_SECOND = 800;
+		public static readonly float BASE_PIXELS_PER_SECOND = 1000;
 		public static float ScrollPxPerSec
 		{
 			get

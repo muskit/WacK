@@ -47,7 +47,7 @@ namespace WacK.Configuration
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="section">CANNOT have spaces.</param>
+		/// <param name="section">CANNOT contain spaces.</param>
 		/// <param name="name">CANNOT contain spaces.</param>
 		/// <param name="defaultValue">The value to set if not found in the settings file.</param>
 		public Config(string section, string name, T defaultValue, OnValueSet callback = null)

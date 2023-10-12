@@ -64,7 +64,7 @@ uv1_offset = Vector3(0, -0.001, 0)
 [sub_resource type="ViewportTexture" id="ViewportTexture_w20vk"]
 viewport_path = NodePath("Mask")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qewlm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1aow1"]
 resource_local_to_scene = true
 shader = ExtResource("3_rjbyl")
 shader_parameter/mask = SubResource("ViewportTexture_w20vk")
@@ -107,7 +107,7 @@ near = 0.001
 far = 20.0
 
 [node name="Cone" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3, 0, 0, 0)
 
 [node name="RootNode" type="Node3D" parent="Node3D/Cone"]
 transform = Transform3D(8.74228e-08, 4.37114e-08, 1, -1, 4.37114e-08, 8.74228e-08, -4.37114e-08, -1, 4.37114e-08, 0, 0, 0)
@@ -162,7 +162,7 @@ anchor_mode = 0
 editor_draw_screen = false
 
 [node name="Background" parent="2D Viewport/Viewport Control" instance=ExtResource("2_8g6gv")]
-material = SubResource("ShaderMaterial_qewlm")
+material = SubResource("ShaderMaterial_1aow1")
 layout_mode = 1
 offset_top = -1920.0
 offset_right = 1920.0

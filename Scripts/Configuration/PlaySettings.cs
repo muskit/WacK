@@ -10,7 +10,7 @@ namespace WacK.Configuration
 		/// Scroll speed multiplier.
 		/// </summary>
 		public static Config<float> playSpeedMultiplier =
-			new("PlaySettings", "playSpeedMultiplier", 2f);
+			new("PlaySettings", "playSpeedMultiplier", 4f);
 
 		/// <summary>
 		/// How much to shift song audio by in seconds.
