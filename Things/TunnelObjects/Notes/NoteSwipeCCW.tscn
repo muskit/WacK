@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cmaq66vbi80ug" path="res://_Assets/Textures/Notes/SlideArrow_Texture.png" id="4_rv322"]
 [ext_resource type="Texture2D" uid="uid://kjoqem41xatr" path="res://_Assets/Textures/Notes/SlideArrow_Mask.png" id="6_o3u8k"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6l1er"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qipny"]
 resource_local_to_scene = true
 shader = ExtResource("3_k16x0")
 shader_parameter/isCw = false
@@ -29,7 +29,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -36.0
+offset_top = -44.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -38,7 +38,8 @@ patch_margin_left = 12
 patch_margin_right = 12
 
 [node name="SwipeArrow" parent="." instance=ExtResource("3_smdjm")]
-material = SubResource("ShaderMaterial_6l1er")
+material = SubResource("ShaderMaterial_qipny")
 layout_mode = 0
-offset_top = -35.0
-offset_bottom = 733.0
+offset_top = -44.0
+offset_right = 138.0
+offset_bottom = 724.0
