@@ -156,7 +156,7 @@ namespace WacK.Scenes
 				
 				foreach (var e in l)
 				{
-					GD.Print($"Passed event {e.type} at {t}");
+					// GD.Print($"Passed event {e.type} at {t}");
 					switch (e.type)
 					{
 						case NoteEventType.BGAdd:
@@ -167,8 +167,24 @@ namespace WacK.Scenes
 							break;
 					}
 				}
-				
 				eventNextIdx++;
+			}
+
+			while (playNextIdx < chart.playNotes.Count && time >= chart.playNotes.Keys[playNextIdx])
+			{
+				var t = chart.playNotes.Keys[playNextIdx];
+				var l = chart.playNotes[t];
+
+				foreach (var e in l)
+				{
+					GD.Print($"Passed {e.type} at {e.measureBeat}");
+					switch (e.type)
+					{
+						default:
+							break;
+					}
+				}
+				++playNextIdx;
 			}
 			
 			// set scroll

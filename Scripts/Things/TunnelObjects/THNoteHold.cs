@@ -17,6 +17,7 @@ namespace WacK.Things.TunnelObjects
 		{
 			holdData = noteData;
 			BuildLongThing(holdScroll);
+            GD.Print($"Building long at {holdData.measureBeat}----------------");
 		}
 
 		// Create longThing in segments.
@@ -88,7 +89,7 @@ namespace WacK.Things.TunnelObjects
                 };
                 segment.AddChild(subSegment);
             }
-            if (originFinalPos < 0 || destinationFinalPos < 0)
+            if (origin.pos < 0 || destPosNearest < 0)
             {
                 GD.Print("overflowed to the left!");
                 var subSegment = new Polygon2D
