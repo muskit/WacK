@@ -46,6 +46,6 @@ Here is how a song in WacK is packaged.
 `#PREVIEW_TIME` (float? seconds)  
 `#PREVIEW_DURATION` (float? seconds)  
 `#MOVIE_FILE_PATH` (str?)  
-`#MOVIE_OFFSET` (float? seconds)
+`#MOVIEOFFSET` (float? seconds)
 
 *`?` = optional
